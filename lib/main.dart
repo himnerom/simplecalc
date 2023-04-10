@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_themes/stacked_themes.dart';
 
-import 'package:simple_calculator/home.dart';
+import 'package:simple_calculator/services/theme_util.dart';
+import 'package:simple_calculator/widgets/home.dart';
 
-void main() {
+void main() async {
+  await ThemeManager.initialise();
   runApp(const MyApp());
 }
 
@@ -13,12 +16,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Simple Calculator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ThemeBuilder(
+      themes: ThemeUtil.themesList,
+      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
+        /// First widget when opening the app
+        home: const HomeScreen(),
+
+        /// App config / debug config
+        title: 'Simple Calculator',
+        debugShowCheckedModeBanner: false,
+        // showPerformanceOverlay: true,
+        // showSemanticsDebugger: true,
+
+        /// Themes related stuff (blue theme by default)
+        theme: ThemeUtil.themesList[1],
+        themeMode: themeMode,
+        darkTheme: darkTheme,
       ),
-      home: const HomeScreen(),
     );
   }
 }
