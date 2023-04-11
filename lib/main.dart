@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
-import 'package:simple_calculator/services/theme_util.dart';
+import 'package:simple_calculator/repositories/theme_util.dart';
 import 'package:simple_calculator/widgets/home.dart';
 
 void main() async {
@@ -11,8 +11,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

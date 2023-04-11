@@ -1,10 +1,10 @@
 name: simple_calculator
 description: Just a simple calculator. Nothing more.
 publish_to: 'none'
-version: 0.0.1+1
+version: 0.0.2+2
 
 environment:
-  sdk: '>=2.19.0-424.0.dev <3.0.0'
+  sdk: '>=2.17.0-149.0.dev <3.0.0'
 
 dependencies:
   flutter:
@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   stacked_themes: ^0.3.10
+  flutter_staggered_grid_view: ^0.6.2
 
 dev_dependencies:
   flutter_test:
@@ -20,9 +21,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/fonts/
   fonts:
     - family: JetBrainsMono
       fonts:
-        - asset: assets/JetBrainsMonoNL-Bold.ttf
-  assets:
-    - assets/logo.png
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/JetBrainsMono-Medium.ttf
+          weight: 600
+        - asset: assets/fonts/JetBrainsMono-Bold.ttf
+          weight: 800

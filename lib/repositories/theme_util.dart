@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// List o' themes
 class ThemeUtil {
-  static String? defaultFont = GoogleFonts.roboto().fontFamily;
+  static String defaultFont = 'JetBrainsMono';
 
   static List<ThemeData> themesList = [
     /// Greenery
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff8bbf73),
-      primarySwatch: Colors.green,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Greenery',
           themeCategory: ThemeCategory.simple,
@@ -26,14 +22,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff8bbf73),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff8bbf73),
+      primarySwatch: Colors.green,
+      brightness: Brightness.light,
     ),
 
     /// Bluwy
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff6d9eeb),
-      primarySwatch: Colors.blue,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Bluwy',
           themeCategory: ThemeCategory.simple,
@@ -48,14 +45,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff6d9eeb),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff6d9eeb),
+      primarySwatch: Colors.blue,
+      brightness: Brightness.light,
     ),
 
     /// Violet
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff8e7cc3),
-      primarySwatch: Colors.deepPurple,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Violet',
           themeCategory: ThemeCategory.simple,
@@ -70,14 +68,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff8e7cc3),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff8e7cc3),
+      primarySwatch: Colors.deepPurple,
+      brightness: Brightness.light,
     ),
 
     /// Redz
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xffe06666),
-      primarySwatch: Colors.red,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Redz',
           themeCategory: ThemeCategory.simple,
@@ -92,14 +91,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xffe06666),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xffe06666),
+      primarySwatch: Colors.red,
+      brightness: Brightness.light,
     ),
 
     /// Orinji
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xfff6b26b),
-      primarySwatch: Colors.orange,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Orinji',
           themeCategory: ThemeCategory.simple,
@@ -114,14 +114,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xfff6b26b),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xfff6b26b),
+      primarySwatch: Colors.orange,
+      brightness: Brightness.light,
     ),
 
     /// Banannaah
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xffffd966),
-      primarySwatch: Colors.yellow,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Banannaah',
           themeCategory: ThemeCategory.simple,
@@ -136,14 +137,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xffffd966),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xffffd966),
+      primarySwatch: Colors.yellow,
+      brightness: Brightness.light,
     ),
 
     /// Dargrey
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xffb7b7b7),
-      primarySwatch: Colors.grey,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Dargrey',
           themeCategory: ThemeCategory.gray,
@@ -158,14 +160,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xffb7b7b7),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xffb7b7b7),
+      primarySwatch: Colors.grey,
+      brightness: Brightness.dark,
     ),
 
     /// Whigrey
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xffb7b7b7),
-      primarySwatch: Colors.blueGrey,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Whigrey',
           themeCategory: ThemeCategory.gray,
@@ -180,14 +183,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xffb7b7b7),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xffb7b7b7),
+      primarySwatch: Colors.blueGrey,
+      brightness: Brightness.light,
     ),
 
     /// Nothingness
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xfff3f3f3),
-      primarySwatch: Colors.grey,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Nothingness',
           themeCategory: ThemeCategory.gray,
@@ -202,14 +206,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xfff3f3f3),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xfff3f3f3),
+      primarySwatch: Colors.grey,
+      brightness: Brightness.light,
     ),
 
     /// Carott
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff8bbf73),
-      primarySwatch: Colors.green,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Carott',
           themeCategory: ThemeCategory.double,
@@ -224,14 +229,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff8bbf73),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff8bbf73),
+      primarySwatch: Colors.green,
+      brightness: Brightness.light,
     ),
 
     /// GrapFrut
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xfff6b26b),
-      primarySwatch: Colors.orange,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'GrapFrut',
           themeCategory: ThemeCategory.double,
@@ -246,14 +252,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xfff6b26b),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xfff6b26b),
+      primarySwatch: Colors.orange,
+      brightness: Brightness.light,
     ),
 
     /// Blubewy
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff6d9eeb),
-      primarySwatch: Colors.blue,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'Blubewy',
           themeCategory: ThemeCategory.double,
@@ -268,14 +275,15 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff6d9eeb),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff6d9eeb),
+      primarySwatch: Colors.blue,
+      brightness: Brightness.light,
     ),
 
     /// SimpleRainbow
     ThemeData(
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff434343),
-      primarySwatch: Colors.grey,
-      extensions: const [
+      extensions: const <MyColors>[
         MyColors(
           themeName: 'SimpleRainbow',
           themeCategory: ThemeCategory.special,
@@ -290,6 +298,10 @@ class ThemeUtil {
           btn2BackgroundColor: Color(0xff000000),
         ),
       ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff434343),
+      primarySwatch: Colors.grey,
+      brightness: Brightness.light,
     ),
   ];
 
