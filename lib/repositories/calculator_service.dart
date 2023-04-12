@@ -1,4 +1,9 @@
+/// Enum for the operation
 enum Operator { add, sub, multiply, divide }
+
+/// Enum to know the state of the operation
+/// States normal lifecycle (no AC): nb1 -> operator -> nb2 -> nb1
+enum OperationState { nb1, operator, nb2 }
 
 class CalculatorService {
   double? calculation(double nb1, Operator ope, double nb2) {

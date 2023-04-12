@@ -5,29 +5,6 @@ class ThemeUtil {
   static String defaultFont = 'JetBrainsMono';
 
   static List<ThemeData> themesList = [
-    /// Greenery
-    ThemeData(
-      extensions: const <MyColors>[
-        MyColors(
-          themeName: 'Greenery',
-          themeCategory: ThemeCategory.simple,
-          titleColor: Color(0xff274e13),
-          backgroundColor: Color(0xffd9ead3),
-          resTextColor: Color(0xff000000),
-          resBorderColor: Color(0xffb6d7a8),
-          resBackgroundColor: Color(0xffffffff),
-          btn1TextColor: Color(0xff274e13),
-          btn1BackgroundColor: Color(0xffb6d7a8),
-          btn2TextColor: Color(0xffffffff),
-          btn2BackgroundColor: Color(0xff8bbf73),
-        ),
-      ],
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff8bbf73),
-      primarySwatch: Colors.green,
-      brightness: Brightness.light,
-    ),
-
     /// Bluwy
     ThemeData(
       extensions: const <MyColors>[
@@ -36,6 +13,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff1c4587),
           backgroundColor: Color(0xffc9daf8),
+          modalColor: Color(0xff1155cc),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffa4c2f4),
           resBackgroundColor: Color(0xffffffff),
@@ -59,6 +37,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff20124d),
           backgroundColor: Color(0xffd9d2e9),
+          modalColor: Color(0xff351c75),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffb4a7d6),
           resBackgroundColor: Color(0xffffffff),
@@ -82,6 +61,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff660000),
           backgroundColor: Color(0xfff4cccc),
+          modalColor: Color(0xff990000),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffea9999),
           resBackgroundColor: Color(0xffffffff),
@@ -105,6 +85,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff783f04),
           backgroundColor: Color(0xfffce5cd),
+          modalColor: Color(0xffb45f06),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xfff9cb9c),
           resBackgroundColor: Color(0xffffffff),
@@ -128,6 +109,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff7f6000),
           backgroundColor: Color(0xfffff2cc),
+          modalColor: Color(0xffbf9000),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffffe599),
           resBackgroundColor: Color(0xffffffff),
@@ -143,6 +125,54 @@ class ThemeUtil {
       brightness: Brightness.light,
     ),
 
+    /// Greenery
+    ThemeData(
+      extensions: const <MyColors>[
+        MyColors(
+          themeName: 'Greenery',
+          themeCategory: ThemeCategory.simple,
+          titleColor: Color(0xff274e13),
+          backgroundColor: Color(0xffd9ead3),
+          modalColor: Color(0xff38761d),
+          resTextColor: Color(0xff000000),
+          resBorderColor: Color(0xffb6d7a8),
+          resBackgroundColor: Color(0xffffffff),
+          btn1TextColor: Color(0xff274e13),
+          btn1BackgroundColor: Color(0xffb6d7a8),
+          btn2TextColor: Color(0xffffffff),
+          btn2BackgroundColor: Color(0xff8bbf73),
+        ),
+      ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff8bbf73),
+      primarySwatch: Colors.green,
+      brightness: Brightness.light,
+    ),
+
+    /// VoidContrast
+    ThemeData(
+      extensions: const <MyColors>[
+        MyColors(
+          themeName: 'VoidContrast',
+          themeCategory: ThemeCategory.special,
+          titleColor: Color(0xff434343),
+          backgroundColor: Color(0xffefefef),
+          modalColor: Color(0xff666666),
+          resTextColor: Color(0xff000000),
+          resBorderColor: Color(0xff999999),
+          resBackgroundColor: Color(0xffffffff),
+          btn1TextColor: Color(0xffffffff),
+          btn1BackgroundColor: Color(0xff000000),
+          btn2TextColor: Color(0xffffffff),
+          btn2BackgroundColor: Color(0xff000000),
+        ),
+      ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff434343),
+      primarySwatch: Colors.grey,
+      brightness: Brightness.light,
+    ),
+
     /// Dargrey
     ThemeData(
       extensions: const <MyColors>[
@@ -151,6 +181,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.gray,
           titleColor: Color(0xffffffff),
           backgroundColor: Color(0xff666666),
+          modalColor: Color(0xffefefef),
           resTextColor: Color(0xffffffff),
           resBorderColor: Color(0xff666666),
           resBackgroundColor: Color(0xff434343),
@@ -174,6 +205,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.gray,
           titleColor: Color(0xff434343),
           backgroundColor: Color(0xffefefef),
+          modalColor: Color(0xff666666),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffd9d9d9),
           resBackgroundColor: Color(0xffffffff),
@@ -197,6 +229,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.gray,
           titleColor: Color(0xff000000),
           backgroundColor: Color(0xffffffff),
+          modalColor: Color(0xff000000),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffeeeeee),
           resBackgroundColor: Color(0xffffffff),
@@ -212,52 +245,6 @@ class ThemeUtil {
       brightness: Brightness.light,
     ),
 
-    /// Carott
-    ThemeData(
-      extensions: const <MyColors>[
-        MyColors(
-          themeName: 'Carott',
-          themeCategory: ThemeCategory.double,
-          titleColor: Color(0xff274e13),
-          backgroundColor: Color(0xffd9ead3),
-          resTextColor: Color(0xff000000),
-          resBorderColor: Color(0xffb6d7a8),
-          resBackgroundColor: Color(0xffffffff),
-          btn1TextColor: Color(0xff783f04),
-          btn1BackgroundColor: Color(0xfff9cb9c),
-          btn2TextColor: Color(0xffffffff),
-          btn2BackgroundColor: Color(0xff8bbf73),
-        ),
-      ],
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xff8bbf73),
-      primarySwatch: Colors.green,
-      brightness: Brightness.light,
-    ),
-
-    /// GrapFrut
-    ThemeData(
-      extensions: const <MyColors>[
-        MyColors(
-          themeName: 'GrapFrut',
-          themeCategory: ThemeCategory.double,
-          titleColor: Color(0xff783f04),
-          backgroundColor: Color(0xfffce5cd),
-          resTextColor: Color(0xff000000),
-          resBorderColor: Color(0xfff9cb9c),
-          resBackgroundColor: Color(0xffffffff),
-          btn1TextColor: Color(0xff660000),
-          btn1BackgroundColor: Color(0xffea9999),
-          btn2TextColor: Color(0xffffffff),
-          btn2BackgroundColor: Color(0xfff6b26b),
-        ),
-      ],
-      fontFamily: defaultFont,
-      primaryColor: const Color(0xfff6b26b),
-      primarySwatch: Colors.orange,
-      brightness: Brightness.light,
-    ),
-
     /// Blubewy
     ThemeData(
       extensions: const <MyColors>[
@@ -266,6 +253,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.double,
           titleColor: Color(0xff1c4587),
           backgroundColor: Color(0xffc9daf8),
+          modalColor: Color(0xff1155cc),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xffa4c2f4),
           resBackgroundColor: Color(0xffffffff),
@@ -281,6 +269,54 @@ class ThemeUtil {
       brightness: Brightness.light,
     ),
 
+    /// GrapFrut
+    ThemeData(
+      extensions: const <MyColors>[
+        MyColors(
+          themeName: 'GrapFrut',
+          themeCategory: ThemeCategory.double,
+          titleColor: Color(0xff783f04),
+          backgroundColor: Color(0xfffce5cd),
+          modalColor: Color(0xffb45f06),
+          resTextColor: Color(0xff000000),
+          resBorderColor: Color(0xfff9cb9c),
+          resBackgroundColor: Color(0xffffffff),
+          btn1TextColor: Color(0xff660000),
+          btn1BackgroundColor: Color(0xffea9999),
+          btn2TextColor: Color(0xffffffff),
+          btn2BackgroundColor: Color(0xfff6b26b),
+        ),
+      ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xfff6b26b),
+      primarySwatch: Colors.orange,
+      brightness: Brightness.light,
+    ),
+
+    /// Carott
+    ThemeData(
+      extensions: const <MyColors>[
+        MyColors(
+          themeName: 'Carott',
+          themeCategory: ThemeCategory.double,
+          titleColor: Color(0xff274e13),
+          backgroundColor: Color(0xffd9ead3),
+          modalColor: Color(0xff38761d),
+          resTextColor: Color(0xff000000),
+          resBorderColor: Color(0xffb6d7a8),
+          resBackgroundColor: Color(0xffffffff),
+          btn1TextColor: Color(0xff783f04),
+          btn1BackgroundColor: Color(0xfff9cb9c),
+          btn2TextColor: Color(0xffffffff),
+          btn2BackgroundColor: Color(0xff8bbf73),
+        ),
+      ],
+      fontFamily: defaultFont,
+      primaryColor: const Color(0xff8bbf73),
+      primarySwatch: Colors.green,
+      brightness: Brightness.light,
+    ),
+
     /// SimpleRainbow
     ThemeData(
       extensions: const <MyColors>[
@@ -289,6 +325,7 @@ class ThemeUtil {
           themeCategory: ThemeCategory.special,
           titleColor: Color(0xff434343),
           backgroundColor: Color(0xffefefef),
+          modalColor: Color(0xff666666),
           resTextColor: Color(0xff000000),
           resBorderColor: Color(0xff999999),
           resBackgroundColor: Color(0xffffffff),
@@ -343,6 +380,7 @@ class MyColors extends ThemeExtension<MyColors> {
     required this.themeCategory,
     required this.titleColor,
     required this.backgroundColor,
+    required this.modalColor,
     required this.resTextColor,
     required this.resBorderColor,
     required this.resBackgroundColor,
@@ -357,6 +395,7 @@ class MyColors extends ThemeExtension<MyColors> {
 
   final Color titleColor;
   final Color backgroundColor;
+  final Color modalColor;
 
   final Color resTextColor;
   final Color resBorderColor;
@@ -374,6 +413,7 @@ class MyColors extends ThemeExtension<MyColors> {
     ThemeCategory? themeCategory,
     Color? titleColor,
     Color? backgroundColor,
+    Color? modalColor,
     Color? resTextColor,
     Color? resBorderColor,
     Color? resBackgroundColor,
@@ -387,6 +427,7 @@ class MyColors extends ThemeExtension<MyColors> {
       themeCategory: themeCategory ?? this.themeCategory,
       titleColor: titleColor ?? this.titleColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
+      modalColor: modalColor ?? this.modalColor,
       resTextColor: resTextColor ?? this.resTextColor,
       resBorderColor: resBorderColor ?? this.resBorderColor,
       resBackgroundColor: resBackgroundColor ?? this.resBackgroundColor,
@@ -405,17 +446,3 @@ class MyColors extends ThemeExtension<MyColors> {
     return this;
   }
 }
-
-/// Old list o' themes
-// static const List<MyThemeData> myThemesList = [
-// MyThemeData('Permanent Red', Color(0xFFF94144), Colors.red, false),
-// MyThemeData('Pale Vermilion', Color(0xFFF3722C), Colors.deepOrange, false),
-// MyThemeData('Sand', Color(0xFFF8961E), Colors.orange, true),
-// MyThemeData('Yellow Ochre', Color(0xFFF9C74F), Colors.amber, true),
-// MyThemeData('True Green', Color(0xFF90BE6D), Colors.green, true),
-// MyThemeData('Aquamarine', Color(0xFF43AA8B), Colors.teal, false),
-// MyThemeData('Cool Grey', Color(0xFF4D908E), Colors.green, false),
-// MyThemeData('Cerulean Blue', Color(0xFF577590), Colors.blueGrey, false),
-// MyThemeData('Muted Turquoise', Color(0xFF2ec4b6), Colors.cyan, false),
-// MyThemeData('Parma Violet', Color(0xFF7678ed), Colors.deepPurple, false),
-// ];

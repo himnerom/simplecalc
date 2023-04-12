@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         // showSemanticsDebugger: true,
 
         /// Themes related stuff (blue theme by default)
-        theme: ThemeUtil.themesList[1],
+        theme: regularTheme,
         themeMode: themeMode,
         darkTheme: darkTheme,
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:simple_calculator/repositories/theme_util.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:simple_calculator/widgets/calc_button.dart';
+import 'package:simple_calculator/repositories/theme_util.dart';
+import 'package:simple_calculator/widgets/buttons/calc_text_button.dart';
 import 'package:simple_calculator/widgets/calc_layout.dart';
 import 'package:simple_calculator/widgets/calc_result.dart';
 
@@ -37,33 +37,33 @@ class _HomeScreenState extends State<HomeScreen> {
               const CalcResult(
                 result: 0,
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '三',
                 textColor: myColors.titleColor,
                 backgroundColor: Colors.transparent,
-                onTap: () {},
+                onTap: () => scaffoldKey.currentState?.openEndDrawer(),
               ),
 
               /// Row 2
-              CalcButton(
+              CalcTextButton(
                 text: '1',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '2',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '3',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: 'AC',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
@@ -72,31 +72,31 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               /// Row 3
-              CalcButton(
+              CalcTextButton(
                 text: '4',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '5',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '6',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '+',
                 textColor: myColors.btn2TextColor,
                 backgroundColor: myColors.btn2BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '-',
                 textColor: myColors.btn2TextColor,
                 backgroundColor: myColors.btn2BackgroundColor,
@@ -104,31 +104,31 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               /// Row 4
-              CalcButton(
+              CalcTextButton(
                 text: '7',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '8',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '9',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '✕',
                 textColor: myColors.btn2TextColor,
                 backgroundColor: myColors.btn2BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '÷',
                 textColor: myColors.btn2TextColor,
                 backgroundColor: myColors.btn2BackgroundColor,
@@ -136,32 +136,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               /// Row 5
-              CalcButton(
+              CalcTextButton(
                 text: '0',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 crossAxisCellCount: 2,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: ',',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 onTap: () {},
               ),
-              CalcButton(
+              CalcTextButton(
                 text: '=',
                 textColor: myColors.btn1TextColor,
                 backgroundColor: myColors.btn1BackgroundColor,
                 crossAxisCellCount: 2,
                 onTap: () {},
               ),
-              // CalcButton(
-              //   text: '',
-              //   textColor: myColors.titleColor,
-              //   backgroundColor: myColors.backgroundColor,
-              //   onTap: () {},
-              // ),
             ],
           ),
         ),

@@ -120,6 +120,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  function_tree:
+    dependency: "direct main"
+    description:
+      name: function_tree
+      sha256: "204efae1786814cee404e68000aebda48bcf0419cc52b10e547c6c82f1b1da92"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.13"
   get_it:
     dependency: transitive
     description:
@@ -297,7 +305,7 @@ packages:
     source: hosted
     version: "0.27.7"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       sha256: "858aaa72d8f61637d64e776aca82e1c67e6d9ee07979123c5d17115031c1b13b"

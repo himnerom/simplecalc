@@ -4,23 +4,22 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class CalcButton extends StatelessWidget {
   const CalcButton({
     Key? key,
-    required this.text,
-    required this.textColor,
-    this.fontSize = 24,
     required this.backgroundColor,
-    required this.onTap,
+    this.borderColor,
     this.mainAxisCellCount = 1,
     this.crossAxisCellCount = 1,
+    required this.onTap,
+    this.child,
   }) : super(key: key);
 
-  final String text;
-  final Color textColor;
-  final double fontSize;
   final Color backgroundColor;
-  final GestureTapCallback? onTap;
+  final Color? borderColor;
 
   final int mainAxisCellCount;
   final int crossAxisCellCount;
+
+  final GestureTapCallback? onTap;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +30,23 @@ class CalcButton extends StatelessWidget {
         color: backgroundColor,
         shadowColor: Colors.transparent,
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: borderColor != null
+            ? RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(
+                  color: borderColor!,
+                  width: 3,
+                ),
+              )
+            : RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
         child: InkWell(
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(8),
             child: Center(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
+              child: child,
             ),
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:simple_calculator/repositories/theme_util.dart';
-import 'package:simple_calculator/widgets/calc_drawer.dart';
+import 'package:simple_calculator/widgets/drawer/calc_drawer.dart';
 
 class CalcLayout extends StatelessWidget {
   const CalcLayout({
@@ -20,7 +20,6 @@ class CalcLayout extends StatelessWidget {
     return Scaffold(
       backgroundColor: myColors.backgroundColor,
       key: scaffoldKey,
-      // onTap: () => scaffoldKey.currentState!.openEndDrawer(),
       body: SafeArea(
         child: child,
       ),
