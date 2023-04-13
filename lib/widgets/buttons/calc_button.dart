@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import 'package:simple_calculator/repositories/shape_service.dart';
 
 class CalcButton extends StatelessWidget {
   const CalcButton({
@@ -23,6 +26,8 @@ class CalcButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double borderRadius = context.watch<ShapeService>().borderRadius;
+
     return StaggeredGridTile.count(
       mainAxisCellCount: mainAxisCellCount,
       crossAxisCellCount: crossAxisCellCount,
@@ -32,14 +37,14 @@ class CalcButton extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         shape: borderColor != null
             ? RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(borderRadius),
                 side: BorderSide(
                   color: borderColor!,
-                  width: 3,
+                  width: 4,
                 ),
               )
             : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
         child: InkWell(
           onTap: onTap,

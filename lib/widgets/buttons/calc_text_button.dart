@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:simple_calculator/widgets/buttons/calc_button.dart';
 
 class CalcTextButton extends StatelessWidget {

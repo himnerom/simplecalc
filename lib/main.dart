@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
+import 'package:simple_calculator/repositories/shape_service.dart';
 import 'package:simple_calculator/repositories/theme_util.dart';
 import 'package:simple_calculator/widgets/home.dart';
 
 void main() async {
   await ThemeManager.initialise();
-  runApp(const MyApp());
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ShapeService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +33,7 @@ class MyApp extends StatelessWidget {
         home: const HomeScreen(),
 
         /// App config / debug config
-        title: 'Simple Calculator',
+        title: 'Simple Calc',
         debugShowCheckedModeBanner: false,
         // showPerformanceOverlay: true,
         // showSemanticsDebugger: true,

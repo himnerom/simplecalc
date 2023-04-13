@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_calculator/repositories/shape_service.dart';
 
 import 'package:simple_calculator/repositories/theme_util.dart';
 import 'package:simple_calculator/widgets/buttons/calc_button.dart';
 import 'package:simple_calculator/widgets/drawer/calc_drawer_theme.dart';
 
-class CalcDrawer extends StatefulWidget {
+class CalcDrawer extends StatelessWidget {
   const CalcDrawer({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<CalcDrawer> createState() => _CalcDrawerState();
-}
-
-class _CalcDrawerState extends State<CalcDrawer> {
-  Map<String, bool> activeSettings = {
-    'theme': false,
-    'shape': false,
-    'history': false,
-  };
+  static const List<double> shapesList = [
+    2, // Solid
+    12, // Round
+    42, // Circle
+    // null, // Hidden
+  ];
 
   @override
   Widget build(BuildContext context) {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
+    double borderRadius = context.watch<ShapeService>().borderRadius;
 
     return Drawer(
       backgroundColor: myColors.backgroundColor,
@@ -63,9 +62,7 @@ class _CalcDrawerState extends State<CalcDrawer> {
                   children: [
                     CalcButton(
                       backgroundColor: myColors.btn1BackgroundColor,
-                      borderColor: activeSettings['theme']!
-                          ? myColors.btn1TextColor
-                          : myColors.btn1BackgroundColor,
+                      borderColor: myColors.btn1BackgroundColor,
                       onTap: () {
                         showDialog(
                           context: context,
@@ -78,9 +75,36 @@ class _CalcDrawerState extends State<CalcDrawer> {
                         shadowColor: Colors.transparent,
                         clipBehavior: Clip.antiAlias,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(borderRadius),
                           side: BorderSide(
                             color: myColors.btn2BackgroundColor,
+                            width: 4,
+                          ),
+                        ),
+                        child: Container(),
+                      ),
+                    ),
+                    CalcButton(
+                      backgroundColor: myColors.resBackgroundColor,
+                      borderColor: myColors.btn1BackgroundColor,
+                      onTap: () {
+                        int idx = shapesList.indexOf(borderRadius) + 1;
+                        if (idx >= shapesList.length) {
+                          idx = 0;
+                        }
+
+                        context
+                            .read<ShapeService>()
+                            .changeBorderRadius(shapesList[idx]);
+                      },
+                      child: Card(
+                        color: myColors.resBackgroundColor,
+                        shadowColor: Colors.transparent,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          side: BorderSide(
+                            color: myColors.resTextColor,
                             width: 4,
                           ),
                         ),
@@ -91,25 +115,6 @@ class _CalcDrawerState extends State<CalcDrawer> {
                 ),
               ),
               const SizedBox(height: 12),
-
-              // Container(
-              //   padding: const EdgeInsets.symmetric(
-              //     vertical: 16,
-              //   ),
-              //   child: Row(
-              //     children: const [
-              //       Expanded(
-              //         child: Text(
-              //           'Made with ♥ and concern\nby Himnerom Labs',
-              //           textAlign: TextAlign.center,
-              //           style: TextStyle(
-              //             fontWeight: FontWeight.w800,
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
