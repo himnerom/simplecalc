@@ -37,7 +37,7 @@ class CalcResult extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              result.toString(),
+              result,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: myColors.resTextColor,

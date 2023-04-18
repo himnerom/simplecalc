@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
+    int i = 0;
 
     return CalcLayout(
       scaffoldKey: scaffoldKey,
@@ -50,25 +51,33 @@ class _HomeScreenState extends State<HomeScreen> {
               CalcTextButton(
                 text: '7',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('7'),
               ),
               CalcTextButton(
                 text: '8',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('8'),
               ),
               CalcTextButton(
                 text: '9',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('9'),
               ),
               CalcTextButton(
                 text: 'AC',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 crossAxisCellCount: 2,
                 onTap: () => context.read<CalculatorService>().pushReset(),
               ),
@@ -77,84 +86,114 @@ class _HomeScreenState extends State<HomeScreen> {
               CalcTextButton(
                 text: '4',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('4'),
               ),
               CalcTextButton(
                 text: '5',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('5'),
               ),
               CalcTextButton(
                 text: '6',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('6'),
               ),
               CalcTextButton(
                 text: '+',
                 textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.btn2BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushOperator('+'),
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn2BackgroundColor,
+                onTap: () =>
+                    context.read<CalculatorService>().pushOperator('+'),
               ),
               CalcTextButton(
                 text: '-',
                 textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.btn2BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushOperator('-'),
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn2BackgroundColor,
+                onTap: () =>
+                    context.read<CalculatorService>().pushOperator('-'),
               ),
 
               /// Row 4
               CalcTextButton(
                 text: '1',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('1'),
               ),
               CalcTextButton(
                 text: '2',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('2'),
               ),
               CalcTextButton(
                 text: '3',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushDigit('3'),
               ),
               CalcTextButton(
                 text: '✕',
                 textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.btn2BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushOperator('*'),
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn2BackgroundColor,
+                onTap: () =>
+                    context.read<CalculatorService>().pushOperator('*'),
               ),
               CalcTextButton(
                 text: '÷',
                 textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.btn2BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushOperator('/'),
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn2BackgroundColor,
+                onTap: () =>
+                    context.read<CalculatorService>().pushOperator('/'),
               ),
 
               /// Row 5
               CalcTextButton(
                 text: '0',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 crossAxisCellCount: 2,
                 onTap: () => context.read<CalculatorService>().pushDigit('0'),
               ),
               CalcTextButton(
                 text: '.',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 onTap: () => context.read<CalculatorService>().pushComma(),
               ),
               CalcTextButton(
                 text: '=',
                 textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.btn1BackgroundColor,
+                backgroundColor: myColors.themeCategory == ThemeCategory.special
+                    ? ThemeUtil.rainbowColors[i++]
+                    : myColors.btn1BackgroundColor,
                 crossAxisCellCount: 2,
                 onTap: () => context.read<CalculatorService>().pushEqual(),
               ),
