@@ -9,7 +9,7 @@ class CalcResult extends StatelessWidget {
     required this.result,
   }) : super(key: key);
 
-  final double result;
+  final String result;
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,18 @@ class CalcResult extends StatelessWidget {
           ),
         ),
         child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
+          padding: const EdgeInsets.symmetric(
+            vertical: 12,
+            horizontal: 20,
+          ),
+          child: Align(
+            alignment: Alignment.centerRight,
             child: Text(
               result.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: myColors.resTextColor,
-                fontSize: 26,
+                fontSize: 28,
                 fontWeight: FontWeight.w800,
               ),
             ),

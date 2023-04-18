@@ -47,6 +47,7 @@ class CalcButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
               ),
         child: InkWell(
+          splashFactory: InkRipple.splashFactory,
           onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(8),

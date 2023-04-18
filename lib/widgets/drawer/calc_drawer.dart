@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_calculator/repositories/shape_service.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:simple_calculator/repositories/theme_util.dart';
 import 'package:simple_calculator/widgets/buttons/calc_button.dart';
