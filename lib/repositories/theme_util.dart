@@ -154,7 +154,7 @@ class ThemeUtil {
       extensions: const <MyColors>[
         MyColors(
           themeName: 'VoidContrast',
-          themeCategory: ThemeCategory.special,
+          themeCategory: ThemeCategory.gray,
           titleColor: Color(0xff434343),
           backgroundColor: Color(0xffefefef),
           modalColor: Color(0xff666666),

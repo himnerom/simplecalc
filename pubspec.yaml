@@ -1,7 +1,7 @@
 name: simple_calculator
 description: Just a simple calculator. Nothing more.
 publish_to: 'none'
-version: 0.0.5+5
+version: 0.0.6+6
 
 environment:
   sdk: '>=2.17.0-149.0.dev <3.0.0'

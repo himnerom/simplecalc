@@ -31,7 +31,6 @@ class CalcResult extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(
-            vertical: 12,
             horizontal: 20,
           ),
           child: Align(
