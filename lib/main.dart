@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
-import 'package:simple_calculator/repositories/calculator_service.dart';
-import 'package:simple_calculator/repositories/shape_service.dart';
-import 'package:simple_calculator/repositories/theme_util.dart';
+import 'package:simple_calculator/services/calculator_service.dart';
+import 'package:simple_calculator/services/shape_service.dart';
+import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/home.dart';
 
 void main() async {

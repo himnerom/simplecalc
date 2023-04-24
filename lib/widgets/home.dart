@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:simple_calculator/repositories/calculator_service.dart';
-import 'package:simple_calculator/repositories/theme_util.dart';
+import 'package:simple_calculator/services/calculator_service.dart';
+import 'package:simple_calculator/services/screen_service.dart';
+import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/buttons/calc_text_button.dart';
 import 'package:simple_calculator/widgets/calc_layout.dart';
 import 'package:simple_calculator/widgets/calc_result.dart';
@@ -23,13 +24,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
+    double screenWidth = ScreenService.screenWidth(context);
+    double screenHeight = ScreenService.screenHeight(context);
     int i = 0;
 
     return CalcLayout(
       scaffoldKey: scaffoldKey,
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.all(20),
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: screenWidth,
+          maxHeight: screenHeight,
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Center(
           child: StaggeredGrid.count(
             axisDirection: AxisDirection.down,
             crossAxisCount: 5,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:simple_calculator/repositories/theme_util.dart';
+import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/drawer/calc_drawer.dart';
 
 class CalcLayout extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:simple_calculator/repositories/shared_preferences_service.dart';
+import 'package:simple_calculator/services/shared_preferences_service.dart';
 
 class ShapeService with ChangeNotifier {
   ShapeService() {

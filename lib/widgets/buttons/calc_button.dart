@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:simple_calculator/repositories/shape_service.dart';
+import 'package:simple_calculator/services/shape_service.dart';
 
 class CalcButton extends StatelessWidget {
   const CalcButton({

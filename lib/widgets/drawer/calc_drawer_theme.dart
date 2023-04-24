@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 
-import 'package:simple_calculator/repositories/screen_service.dart';
-import 'package:simple_calculator/repositories/theme_util.dart';
+import 'package:simple_calculator/services/screen_service.dart';
+import 'package:simple_calculator/services/theme_service.dart';
 
 class CalcDrawerTheme extends StatelessWidget {
   const CalcDrawerTheme({
