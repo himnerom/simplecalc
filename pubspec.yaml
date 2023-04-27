@@ -27,7 +27,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-    - assets/rainbow.png
     - assets/fonts/
   fonts:
     - family: JetBrainsMono

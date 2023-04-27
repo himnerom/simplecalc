@@ -20,6 +20,7 @@ class CalcLayout extends StatelessWidget {
     return Scaffold(
       backgroundColor: myColors.backgroundColor,
       key: scaffoldKey,
+      drawerEnableOpenDragGesture: false,
       body: SafeArea(
         child: child,
       ),

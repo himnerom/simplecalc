@@ -35,50 +35,69 @@ class CalcDrawerTheme extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    for (var theme in ThemeUtil.themesList)
-                      Container(
-                        color: myColors.resBackgroundColor,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            int idx = ThemeUtil.themesList.indexWhere((e) {
-                              return e.extension<MyColors>()!.themeName ==
-                                  theme.extension<MyColors>()!.themeName;
-                            });
-                            if (idx >= 0 && idx < ThemeUtil.themesList.length) {
-                              getThemeManager(context).selectThemeAtIndex(idx);
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              Card(
-                                color: theme.primaryColor,
-                                shadowColor: Colors.transparent,
-                                child: const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  theme.extension<MyColors>()!.themeName,
-                                  style: TextStyle(
-                                    color: myColors.resTextColor,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.w800,
+                  children: ThemeUtil.themesList.asMap().entries.map((entry) {
+                    int idx = entry.key;
+                    ThemeData theme = entry.value;
+                    MyColors extension = theme.extension<MyColors>()!;
+
+                    return Container(
+                      color: myColors.resBackgroundColor,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          getThemeManager(context).selectThemeAtIndex(idx);
+                        },
+                        child: Row(
+                          children: [
+                            Card(
+                              color: theme.primaryColor,
+                              shadowColor: Colors.transparent,
+                              clipBehavior: Clip.antiAlias,
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: extension.themeCategory ==
+                                            ThemeCategory.special
+                                        ? const SweepGradient(
+                                            colors: ThemeUtil.rainbowColors,
+                                          )
+                                        : LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              extension.secondaryColor,
+                                              extension.secondaryColor,
+                                              extension.secondaryColor,
+                                              theme.primaryColor,
+                                              theme.primaryColor,
+                                              theme.primaryColor,
+                                            ],
+                                          ),
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                extension.themeName,
+                                style: TextStyle(
+                                  color: myColors.resTextColor,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                  ],
+                    );
+                  }).toList(),
                 ),
               ),
             ),

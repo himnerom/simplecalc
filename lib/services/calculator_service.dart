@@ -65,9 +65,11 @@ class CalculatorService with ChangeNotifier {
       nb2 = nb1;
     }
 
-    /// See here concat strings, not adding things together
+    /// Creates the calculation string
     final String calcString = nb1 + operator + nb2;
-    currentDisplay = calcString.interpret().toString();
+
+    /// Makes the calculation
+    currentDisplay = removeNumberEnding(calcString.interpret().toString());
     nb1 = currentDisplay;
     operationState = OperationState.eq;
   }
@@ -107,5 +109,21 @@ class CalculatorService with ChangeNotifier {
     } else if (char == 'AC') {
       pushReset();
     }
+  }
+
+  static String removeNumberEnding(String nb) {
+    if (nb.contains('.')) {
+      for (int i = nb.length - 1; i > 0; i--) {
+        if (nb[i] == '0') {
+          nb = nb.substring(0, i);
+        } else if (nb[i] == '.') {
+          nb = nb.substring(0, i);
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+    return nb;
   }
 }
