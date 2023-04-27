@@ -26,6 +26,7 @@ class CalcButton extends StatelessWidget {
       color: backgroundColor,
       shadowColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
       shape: borderColor != null
           ? RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),

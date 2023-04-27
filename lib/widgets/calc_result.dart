@@ -15,6 +15,7 @@ class CalcResult extends StatelessWidget {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
 
     return Card(
+      margin: EdgeInsets.zero,
       color: myColors.resBackgroundColor,
       shadowColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,

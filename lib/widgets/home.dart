@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:simple_calculator/services/calculator_service.dart';
+import 'package:simple_calculator/services/screen_service.dart';
 import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/buttons/calc_text_button.dart';
 import 'package:simple_calculator/widgets/calc_layout.dart';
@@ -18,15 +19,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  static const double itemSpacing = 8;
+  static const double itemSpacing = 10;
+  static const double layoutPadding = 24;
+
+  double itemFlexSize(double layoutSize, int flex) {
+    return (layoutSize - (layoutPadding * 2) - (itemSpacing * 4)) *
+            (0.2 * flex) +
+        (itemSpacing * (flex - 1));
+  }
 
   @override
   Widget build(BuildContext context) {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
+    double layoutSize = ScreenService.getLayoutSize(context);
     int i = 0;
 
     return CalcLayout(
       scaffoldKey: scaffoldKey,
+      layoutSize: layoutSize,
+      layoutPadding: layoutPadding,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  flex: 4,
+                SizedBox(
+                  width: itemFlexSize(layoutSize, 4),
                   child: CalcResult(
                     result: context.watch<CalculatorService>().currentDisplay,
                   ),
@@ -99,8 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(width: itemSpacing),
-                Expanded(
-                  flex: 2,
+                SizedBox(
+                  width: itemFlexSize(layoutSize, 2),
                   child: CalcTextButton(
                     text: 'AC',
                     textColor: myColors.btn1TextColor,
@@ -266,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: Row(
               children: [
-                Expanded(
-                  flex: 2,
+                SizedBox(
+                  width: itemFlexSize(layoutSize, 2),
                   child: CalcTextButton(
                     text: '0',
                     textColor: myColors.btn1TextColor,
@@ -292,8 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(width: itemSpacing),
-                Expanded(
-                  flex: 2,
+                SizedBox(
+                  width: itemFlexSize(layoutSize, 2),
                   child: CalcTextButton(
                     text: '=',
                     textColor: myColors.btn1TextColor,
