@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_calculator/services/shape_service.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import 'package:simple_calculator/services/shape_service.dart';
 import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/buttons/calc_button.dart';
 import 'package:simple_calculator/widgets/drawer/calc_drawer_theme.dart';
@@ -60,55 +60,63 @@ class CalcDrawer extends StatelessWidget {
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
                   children: [
-                    CalcButton(
-                      backgroundColor: myColors.btn1BackgroundColor,
-                      borderColor: myColors.btn1BackgroundColor,
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              const CalcDrawerTheme(),
-                        );
-                      },
-                      child: Card(
-                        color: myColors.btn2BackgroundColor,
-                        shadowColor: Colors.transparent,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                          side: BorderSide(
-                            color: myColors.btn2BackgroundColor,
-                            width: 4,
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 1,
+                      mainAxisCellCount: 1,
+                      child: CalcButton(
+                        backgroundColor: myColors.btn1BackgroundColor,
+                        borderColor: myColors.btn1BackgroundColor,
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                const CalcDrawerTheme(),
+                          );
+                        },
+                        child: Card(
+                          color: myColors.btn2BackgroundColor,
+                          shadowColor: Colors.transparent,
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            side: BorderSide(
+                              color: myColors.btn2BackgroundColor,
+                              width: 4,
+                            ),
                           ),
+                          child: Container(),
                         ),
-                        child: Container(),
                       ),
                     ),
-                    CalcButton(
-                      backgroundColor: myColors.resBackgroundColor,
-                      borderColor: myColors.btn1BackgroundColor,
-                      onTap: () {
-                        int idx = shapesList.indexOf(borderRadius) + 1;
-                        if (idx >= shapesList.length) {
-                          idx = 0;
-                        }
+                    StaggeredGridTile.count(
+                      crossAxisCellCount: 1,
+                      mainAxisCellCount: 1,
+                      child: CalcButton(
+                        backgroundColor: myColors.resBackgroundColor,
+                        borderColor: myColors.btn1BackgroundColor,
+                        onTap: () {
+                          int idx = shapesList.indexOf(borderRadius) + 1;
+                          if (idx >= shapesList.length) {
+                            idx = 0;
+                          }
 
-                        context
-                            .read<ShapeService>()
-                            .changeBorderRadius(shapesList[idx]);
-                      },
-                      child: Card(
-                        color: myColors.resBackgroundColor,
-                        shadowColor: Colors.transparent,
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                          side: BorderSide(
-                            color: myColors.resTextColor,
-                            width: 4,
+                          context
+                              .read<ShapeService>()
+                              .changeBorderRadius(shapesList[idx]);
+                        },
+                        child: Card(
+                          color: myColors.resBackgroundColor,
+                          shadowColor: Colors.transparent,
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            side: BorderSide(
+                              color: myColors.resTextColor,
+                              width: 4,
+                            ),
                           ),
+                          child: Container(),
                         ),
-                        child: Container(),
                       ),
                     ),
                   ],

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         home: const HomeScreen(),
 
         /// App config / debug config
-        title: 'Simple Calc',
+        title: 'SimpleCalc',
         debugShowCheckedModeBanner: false,
         // showPerformanceOverlay: true,
         // showSemanticsDebugger: true,

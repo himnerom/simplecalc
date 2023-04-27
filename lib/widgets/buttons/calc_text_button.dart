@@ -10,8 +10,6 @@ class CalcTextButton extends StatelessWidget {
     this.fontSize = 24,
     required this.backgroundColor,
     this.borderColor,
-    this.mainAxisCellCount = 1,
-    this.crossAxisCellCount = 1,
     required this.onTap,
   }) : super(key: key);
 
@@ -22,16 +20,11 @@ class CalcTextButton extends StatelessWidget {
   final Color? borderColor;
   final GestureTapCallback? onTap;
 
-  final int mainAxisCellCount;
-  final int crossAxisCellCount;
-
   @override
   Widget build(BuildContext context) {
     return CalcButton(
       backgroundColor: backgroundColor,
       borderColor: borderColor,
-      mainAxisCellCount: mainAxisCellCount,
-      crossAxisCellCount: crossAxisCellCount,
       onTap: onTap,
       child: Text(
         text,

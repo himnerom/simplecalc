@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-/// Based on size only ; not the device orientation
-enum ScreenSizeOrientation { horizontal, vertical }
+import 'package:flutter/foundation.dart';
 
 class ScreenService {
   /// Returns screen width minus removed SafeArea width
@@ -28,5 +26,18 @@ class ScreenService {
   /// Returns full screen height
   static double screenHeightWithoutSafeArea(BuildContext context) {
     return MediaQuery.of(context).size.height;
+  }
+
+  /// Returns squared layout's size (width & height)
+  static double getLayoutSize(BuildContext context) {
+    double screenWidth = ScreenService.screenWidth(context);
+    double screenHeight = ScreenService.screenHeight(context);
+    double layoutSize = screenHeight < screenWidth ? screenHeight : screenWidth;
+
+    if (kDebugMode) {
+      print('Layout size: $layoutSize');
+    }
+
+    return layoutSize < 600 ? layoutSize : 600;
   }
 }

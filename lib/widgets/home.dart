@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:simple_calculator/services/calculator_service.dart';
-import 'package:simple_calculator/services/screen_service.dart';
 import 'package:simple_calculator/services/theme_service.dart';
 import 'package:simple_calculator/widgets/buttons/calc_text_button.dart';
 import 'package:simple_calculator/widgets/calc_layout.dart';
@@ -20,193 +18,296 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  static const double itemSpacing = 8;
 
   @override
   Widget build(BuildContext context) {
     MyColors myColors = Theme.of(context).extension<MyColors>()!;
-    double screenWidth = ScreenService.screenWidth(context);
-    double screenHeight = ScreenService.screenHeight(context);
     int i = 0;
 
     return CalcLayout(
       scaffoldKey: scaffoldKey,
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: screenWidth,
-          maxHeight: screenHeight,
-        ),
-        padding: const EdgeInsets.all(20),
-        child: Center(
-          child: StaggeredGrid.count(
-            axisDirection: AxisDirection.down,
-            crossAxisCount: 5,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            children: [
-              /// Row 1
-              CalcResult(
-                result: context.watch<CalculatorService>().currentDisplay,
-              ),
-              CalcTextButton(
-                text: '三',
-                textColor: myColors.titleColor,
-                backgroundColor: Colors.transparent,
-                onTap: () => scaffoldKey.currentState?.openEndDrawer(),
-              ),
-
-              /// Row 2
-              CalcTextButton(
-                text: '7',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('7'),
-              ),
-              CalcTextButton(
-                text: '8',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('8'),
-              ),
-              CalcTextButton(
-                text: '9',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('9'),
-              ),
-              CalcTextButton(
-                text: 'AC',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                crossAxisCellCount: 2,
-                onTap: () => context.read<CalculatorService>().pushReset(),
-              ),
-
-              /// Row 3
-              CalcTextButton(
-                text: '4',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('4'),
-              ),
-              CalcTextButton(
-                text: '5',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('5'),
-              ),
-              CalcTextButton(
-                text: '6',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('6'),
-              ),
-              CalcTextButton(
-                text: '+',
-                textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn2BackgroundColor,
-                onTap: () =>
-                    context.read<CalculatorService>().pushOperator('+'),
-              ),
-              CalcTextButton(
-                text: '-',
-                textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn2BackgroundColor,
-                onTap: () =>
-                    context.read<CalculatorService>().pushOperator('-'),
-              ),
-
-              /// Row 4
-              CalcTextButton(
-                text: '1',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('1'),
-              ),
-              CalcTextButton(
-                text: '2',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('2'),
-              ),
-              CalcTextButton(
-                text: '3',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushDigit('3'),
-              ),
-              CalcTextButton(
-                text: '✕',
-                textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn2BackgroundColor,
-                onTap: () =>
-                    context.read<CalculatorService>().pushOperator('*'),
-              ),
-              CalcTextButton(
-                text: '÷',
-                textColor: myColors.btn2TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn2BackgroundColor,
-                onTap: () =>
-                    context.read<CalculatorService>().pushOperator('/'),
-              ),
-
-              /// Row 5
-              CalcTextButton(
-                text: '0',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                crossAxisCellCount: 2,
-                onTap: () => context.read<CalculatorService>().pushDigit('0'),
-              ),
-              CalcTextButton(
-                text: '.',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                onTap: () => context.read<CalculatorService>().pushComma(),
-              ),
-              CalcTextButton(
-                text: '=',
-                textColor: myColors.btn1TextColor,
-                backgroundColor: myColors.themeCategory == ThemeCategory.special
-                    ? ThemeUtil.rainbowColors[i++]
-                    : myColors.btn1BackgroundColor,
-                crossAxisCellCount: 2,
-                onTap: () => context.read<CalculatorService>().pushEqual(),
-              ),
-            ],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          /// Row 1
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: CalcResult(
+                    result: context.watch<CalculatorService>().currentDisplay,
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '三',
+                    textColor: myColors.titleColor,
+                    backgroundColor: Colors.transparent,
+                    onTap: () => scaffoldKey.currentState?.openEndDrawer(),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: itemSpacing),
+
+          /// Row 2
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: CalcTextButton(
+                    text: '7',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('7'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '8',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('8'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '9',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('9'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  flex: 2,
+                  child: CalcTextButton(
+                    text: 'AC',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () => context.read<CalculatorService>().pushReset(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: itemSpacing),
+
+          /// Row 3
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: CalcTextButton(
+                    text: '4',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('4'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '5',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('5'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '6',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('6'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '+',
+                    textColor: myColors.btn2TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn2BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushOperator('+'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '-',
+                    textColor: myColors.btn2TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn2BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushOperator('-'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: itemSpacing),
+
+          /// Row 4
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: CalcTextButton(
+                    text: '1',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('1'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '2',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('2'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '3',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('3'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '✕',
+                    textColor: myColors.btn2TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn2BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushOperator('*'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '÷',
+                    textColor: myColors.btn2TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn2BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushOperator('/'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: itemSpacing),
+
+          /// Row 5
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: CalcTextButton(
+                    text: '0',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () =>
+                        context.read<CalculatorService>().pushDigit('0'),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcTextButton(
+                    text: '.',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () => context.read<CalculatorService>().pushComma(),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  flex: 2,
+                  child: CalcTextButton(
+                    text: '=',
+                    textColor: myColors.btn1TextColor,
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? ThemeUtil.rainbowColors[i++]
+                            : myColors.btn1BackgroundColor,
+                    onTap: () => context.read<CalculatorService>().pushEqual(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
