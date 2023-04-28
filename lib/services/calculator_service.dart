@@ -102,7 +102,7 @@ class CalculatorService with ChangeNotifier {
       pushDigit(char);
     } else if (possibleOperators.contains(char)) {
       pushOperator(char);
-    } else if (char == '=') {
+    } else if (char == '=' || char == '\n') {
       pushEqual();
     } else if (char == ',') {
       pushComma();

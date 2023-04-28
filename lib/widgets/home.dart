@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:simple_calculator/services/calculator_service.dart';
@@ -26,6 +28,30 @@ class _HomeScreenState extends State<HomeScreen> {
     return (layoutSize - (layoutPadding * 2) - (itemSpacing * 4)) *
             (0.2 * flex) +
         (itemSpacing * (flex - 1));
+  }
+
+  bool handleKeyPress(KeyEvent event) {
+    if (event is KeyDownEvent && event.character != null) {
+      context.read<CalculatorService>().push(event.character!);
+      if (kDebugMode) {
+        print(event.physicalKey.usbHidUsage);
+        print(event.logicalKey.keyId);
+        print(event.character);
+      }
+    }
+    return true;
+  }
+
+  @override
+  void initState() {
+    ServicesBinding.instance.keyboard.addHandler(handleKeyPress);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    ServicesBinding.instance.keyboard.removeHandler(handleKeyPress);
+    super.dispose();
   }
 
   @override
