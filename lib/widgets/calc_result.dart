@@ -32,13 +32,16 @@ class CalcResult extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerRight,
-          child: Text(
-            result,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: myColors.resTextColor,
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              result,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: myColors.resTextColor,
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
         ),

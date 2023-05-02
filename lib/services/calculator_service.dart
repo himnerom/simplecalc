@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
+import 'package:decimal/decimal.dart';
 import 'package:function_tree/function_tree.dart';
-
-/// Enum for the operation
 
 /// Enum to know the state of the operation
 /// States normal lifecycle (no AC): nb1 -> ope -> nb2 -> eq -> nb1
-enum OperationState { nb1, ope, nb2, eq }
+enum OperationState {
+  nb1,
+  ope,
+  nb2,
+  eq,
+}
 
 class CalculatorService with ChangeNotifier {
   static const String possibleOperators = '+-*/';
@@ -33,20 +37,30 @@ class CalculatorService with ChangeNotifier {
   }
 
   void pushDigit(String digit) {
-    if (operationState == OperationState.nb1) {
-      nb1 = nb1 == '0' ? digit : nb1 + digit;
-      currentDisplay = nb1;
-    } else if (operationState == OperationState.ope) {
-      operationState = OperationState.nb2;
-      nb2 = digit;
-      currentDisplay = nb2;
-    } else if (operationState == OperationState.nb2) {
-      nb2 = nb2 == '0' ? digit : nb2 + digit;
-      currentDisplay = nb2;
-    } else if (operationState == OperationState.eq) {
-      pushReset();
-      nb1 = digit;
-      currentDisplay = nb1;
+    /// Not a number
+    if (!possibleDigits.contains(digit)) {
+      return;
+    }
+
+    switch (operationState) {
+      case OperationState.nb1:
+        nb1 = nb1 == '0' ? digit : nb1 + digit;
+        currentDisplay = nb1;
+        break;
+      case OperationState.ope:
+        operationState = OperationState.nb2;
+        nb2 = digit;
+        currentDisplay = nb2;
+        break;
+      case OperationState.nb2:
+        nb2 = nb2 == '0' ? digit : nb2 + digit;
+        currentDisplay = nb2;
+        break;
+      case OperationState.eq:
+        pushReset();
+        nb1 = digit;
+        currentDisplay = nb1;
+        break;
     }
   }
 
@@ -61,16 +75,41 @@ class CalculatorService with ChangeNotifier {
   }
 
   void pushEqual() {
+    if (!possibleOperators.contains(operator)) {
+      return;
+    }
     if (operationState == OperationState.ope) {
       nb2 = nb1;
     }
 
-    /// Creates the calculation string
-    final String calcString = nb1 + operator + nb2;
+    /// Handles nb1/0
+    if (operator == '/' && removeTrailingZeros(nb2) == '0') {
+      currentDisplay = 'Not a number';
+      operationState = OperationState.eq;
+      return;
+    }
 
-    /// Makes the calculation
-    currentDisplay = removeNumberEnding(calcString.interpret().toString());
-    nb1 = currentDisplay;
+    Decimal d1 = Decimal.parse(nb1);
+    Decimal d2 = Decimal.parse(nb2);
+    Decimal res = Decimal.parse('0');
+
+    switch (operator) {
+      case '+':
+        res = d1 + d2;
+        break;
+      case '-':
+        res = d1 - d2;
+        break;
+      case '*':
+        res = d1 * d2;
+        break;
+      case '/':
+        res = (d1 / d2).toDecimal(scaleOnInfinitePrecision: 1024);
+        break;
+    }
+
+    nb1 = res.toString();
+    currentDisplay = removeTrailingZeros(nb1.interpret().toString());
     operationState = OperationState.eq;
   }
 
@@ -104,26 +143,29 @@ class CalculatorService with ChangeNotifier {
       pushOperator(char);
     } else if (char == '=' || char == '\n') {
       pushEqual();
-    } else if (char == ',') {
+    } else if (char == ',' || char == '.') {
       pushComma();
     } else if (char == 'AC') {
       pushReset();
     }
   }
 
-  static String removeNumberEnding(String nb) {
+  /// Ex: 010.0 -> 010 ; 10.01000 -> 10.01
+  static String removeTrailingZeros(String nb) {
+    /// Zeros above
+    nb = nb.replaceFirst(RegExp('^0+'), '');
+    if (nb.isEmpty || nb[0] == '.') {
+      nb = '0$nb';
+    }
+
+    /// Zeros beyond
     if (nb.contains('.')) {
-      for (int i = nb.length - 1; i > 0; i--) {
-        if (nb[i] == '0') {
-          nb = nb.substring(0, i);
-        } else if (nb[i] == '.') {
-          nb = nb.substring(0, i);
-          break;
-        } else {
-          break;
-        }
+      nb = nb.replaceFirst(RegExp('0+\$'), '');
+      if (nb[nb.length - 1] == '.') {
+        nb = nb.substring(0, nb.length - 1);
       }
     }
+
     return nb;
   }
 }
