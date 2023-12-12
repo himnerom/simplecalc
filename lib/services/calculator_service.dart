@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:decimal/decimal.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:function_tree/function_tree.dart';
 
 /// Enum to know the state of the operation
@@ -14,6 +16,23 @@ enum OperationState {
 class CalculatorService with ChangeNotifier {
   static const String possibleOperators = '+-*/';
   static const String possibleDigits = '0123456789';
+
+  static const List<LogicalKeyboardKey> commaKeys = [
+    LogicalKeyboardKey.comma,
+    LogicalKeyboardKey.period,
+    LogicalKeyboardKey.numpadComma,
+    LogicalKeyboardKey.numpadDecimal,
+  ];
+  static const List<LogicalKeyboardKey> equalKeys = [
+    LogicalKeyboardKey.equal,
+    LogicalKeyboardKey.enter,
+    LogicalKeyboardKey.numpadEqual,
+    LogicalKeyboardKey.numpadEnter,
+  ];
+  static const List<LogicalKeyboardKey> removeKeys = [
+    LogicalKeyboardKey.delete,
+    LogicalKeyboardKey.backspace,
+  ];
 
   String _currentDisplay = '0';
   String nb1 = '0';
@@ -37,7 +56,7 @@ class CalculatorService with ChangeNotifier {
   }
 
   void pushDigit(String digit) {
-    /// Not a number
+    /// Not a digit
     if (!possibleDigits.contains(digit)) {
       return;
     }
@@ -128,6 +147,28 @@ class CalculatorService with ChangeNotifier {
     }
   }
 
+  void pushRemove() {
+    String nb = currentDisplay;
+    if (nb.isEmpty || nb.length == 1) {
+      nb = '0';
+    } else if (nb.contains('e')) {
+      if (nb.contains('+')) {
+        nb = nb.replaceAll('.', '');
+      }
+      nb = nb.substring(0, nb.indexOf('e'));
+    } else {
+      nb = nb.substring(0, nb.length - 1);
+    }
+
+    currentDisplay = nb;
+    if (operationState == OperationState.nb2) {
+      nb2 = nb;
+    } else {
+      nb1 = nb;
+      operationState = OperationState.nb1;
+    }
+  }
+
   void pushReset() {
     currentDisplay = '0';
     nb1 = '0';
@@ -136,16 +177,21 @@ class CalculatorService with ChangeNotifier {
     operationState = OperationState.nb1;
   }
 
-  void push(String char) {
-    if (possibleDigits.contains(char)) {
+  void push(KeyEvent event) {
+    String? char = event.character;
+    if (char != null && possibleDigits.contains(char)) {
       pushDigit(char);
-    } else if (possibleOperators.contains(char)) {
+    } else if (char != null && possibleOperators.contains(char)) {
       pushOperator(char);
-    } else if (char == '=' || char == '\n') {
-      pushEqual();
-    } else if (char == ',' || char == '.') {
+    } else if (commaKeys.contains(event.logicalKey) ||
+        char == '.' ||
+        char == ',') {
       pushComma();
-    } else if (char == 'AC') {
+    } else if (equalKeys.contains(event.logicalKey) || char == '=') {
+      pushEqual();
+    } else if (removeKeys.contains(event.logicalKey)) {
+      pushRemove();
+    } else if (event.logicalKey == LogicalKeyboardKey.escape) {
       pushReset();
     }
   }

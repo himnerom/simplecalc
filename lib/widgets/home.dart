@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:simple_calculator/services/calculator_service.dart';
 import 'package:simple_calculator/services/screen_service.dart';
 import 'package:simple_calculator/services/theme_service.dart';
+import 'package:simple_calculator/widgets/buttons/calc_button.dart';
 import 'package:simple_calculator/widgets/buttons/calc_text_button.dart';
 import 'package:simple_calculator/widgets/calc_layout.dart';
-import 'package:simple_calculator/widgets/calc_result.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   bool handleKeyPress(KeyEvent event) {
-    if (event is KeyDownEvent && event.character != null) {
-      context.read<CalculatorService>().push(event.character!);
+    if (event is KeyDownEvent) {
+      context.read<CalculatorService>().push(event);
       if (kDebugMode) {
         print(event.physicalKey.usbHidUsage);
         print(event.logicalKey.keyId);
@@ -75,8 +75,65 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SizedBox(
                   width: itemFlexSize(layoutSize, 4),
-                  child: CalcResult(
-                    result: context.watch<CalculatorService>().currentDisplay,
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    color: myColors.resBackgroundColor,
+                    shadowColor: Colors.transparent,
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                      side: BorderSide(
+                        color: myColors.resBorderColor,
+                        width: 4,
+                      ),
+                    ),
+                    child: InkWell(
+                      splashFactory: NoSplash.splashFactory,
+                      highlightColor: myColors.secondaryColor.withOpacity(0.1),
+                      onLongPress: () {
+                        Clipboard.setData(
+                          ClipboardData(
+                            text: context
+                                .read<CalculatorService>()
+                                .currentDisplay,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: myColors.btn2BackgroundColor,
+                            duration: const Duration(seconds: 2),
+                            content: Padding(
+                              padding: const EdgeInsets.all(4),
+                              child: Icon(
+                                Icons.assignment_turned_in_rounded,
+                                color: myColors.btn2TextColor,
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              context.watch<CalculatorService>().currentDisplay,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: myColors.resTextColor,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: itemSpacing),
@@ -136,8 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(width: itemSpacing),
-                SizedBox(
-                  width: itemFlexSize(layoutSize, 2),
+                Expanded(
                   child: CalcTextButton(
                     text: 'AC',
                     textColor: myColors.btn1TextColor,
@@ -146,6 +202,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? ThemeUtil.rainbowColors[i++]
                             : myColors.btn1BackgroundColor,
                     onTap: () => context.read<CalculatorService>().pushReset(),
+                  ),
+                ),
+                const SizedBox(width: itemSpacing),
+                Expanded(
+                  child: CalcButton(
+                    backgroundColor:
+                        myColors.themeCategory == ThemeCategory.special
+                            ? Colors.transparent
+                            : myColors.btn1BackgroundColor,
+                    onTap: () => context.read<CalculatorService>().pushRemove(),
+                    child: Center(
+                      child: Icon(
+                        Icons.backspace_rounded,
+                        color: myColors.themeCategory == ThemeCategory.special
+                            ? myColors.modalColor
+                            : myColors.btn1TextColor,
+                        size: 22,
+                      ),
+                    ),
                   ),
                 ),
               ],

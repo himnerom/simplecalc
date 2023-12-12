@@ -55,11 +55,11 @@ class ThemeUtil {
       brightness: Brightness.light,
     ),
 
-    /// Redz
+    /// Leechi
     ThemeData(
       extensions: const [
         MyColors(
-          themeName: 'Redz',
+          themeName: 'Leechi',
           themeCategory: ThemeCategory.simple,
           titleColor: Color(0xff660000),
           backgroundColor: Color(0xfff4cccc),

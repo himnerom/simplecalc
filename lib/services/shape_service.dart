@@ -9,9 +9,7 @@ class ShapeService with ChangeNotifier {
   }
 
   double _borderRadius = 12;
-
   double get borderRadius => _borderRadius;
-
   void changeBorderRadius(double borderRadius) {
     _borderRadius = borderRadius;
     SharedPreferencesService.setValue(
