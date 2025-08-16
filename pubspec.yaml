@@ -1,29 +1,27 @@
 name: simple_calculator
 description: Just a simple calculator. Nothing more.
-publish_to: 'none'
-version: 0.1.1+8
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+10
 
 environment:
-  sdk: '>=2.17.0-149.0.dev <3.0.0'
+  sdk: ^3.9.0
 
 dependencies:
+  decimal: ^3.2.4
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  google_fonts: ^4.0.3
-  stacked_themes: ^0.3.10
-  flutter_staggered_grid_view: ^0.6.2
-  shared_preferences: ^2.1.0
-  function_tree: ^0.8.13
-  get_it: ^7.2.0
-  provider: ^6.0.5
-  rational: ^2.2.2
-  decimal: ^2.3.2
+  flutter_riverpod: ^2.6.1
+  flutter_staggered_grid_view: ^0.7.0
+  function_tree: ^0.9.1
+  rational: ^2.2.3
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
+  riverpod_lint: ^2.6.5
+  riverpod_generator: ^2.6.5
 
 flutter:
   uses-material-design: true

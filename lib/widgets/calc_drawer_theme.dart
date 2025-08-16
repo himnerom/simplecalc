@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_themes/stacked_themes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:simple_calculator/services/screen_service.dart';
-import 'package:simple_calculator/services/theme_service.dart';
+import 'package:simple_calculator/main.dart';
+import 'package:simple_calculator/providers/theme_provider.dart';
 
-class CalcDrawerTheme extends StatelessWidget {
-  const CalcDrawerTheme({
-    Key? key,
-  }) : super(key: key);
+class CalcDrawerTheme extends ConsumerWidget {
+  const CalcDrawerTheme({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    MyColors myColors = Theme.of(context).extension<MyColors>()!;
-    double screenHeight = ScreenService.screenHeight(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final MyColors myColors = ref.watch(themeProvider).extension<MyColors>()!;
+
+    final MediaQueryData mqd = MediaQuery.of(context);
+    final double height =
+        mqd.size.height - mqd.padding.top - mqd.padding.bottom;
 
     return Dialog(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: myColors.btn2BackgroundColor,
-          width: 6,
-        ),
+        side: BorderSide(color: myColors.btn2BackgroundColor, width: 6),
       ),
       child: SizedBox(
-        height: screenHeight * 0.4,
+        height: height * 0.4,
         width: 280,
         child: Column(
           children: [
             Container(
               color: myColors.btn2BackgroundColor,
-              height: screenHeight * 0.025,
+              height: height * 0.025,
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: ThemeUtil.themesList.asMap().entries.map((entry) {
+                  children: ThemeProvider.themesList.asMap().entries.map((
+                    entry,
+                  ) {
                     int idx = entry.key;
                     ThemeData theme = entry.value;
                     MyColors extension = theme.extension<MyColors>()!;
@@ -48,7 +48,10 @@ class CalcDrawerTheme extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          getThemeManager(context).selectThemeAtIndex(idx);
+                          ref
+                              .read(themeProvider.notifier)
+                              .selectThemeAtIndex(idx);
+                          // getThemeManager(context).selectThemeAtIndex(idx);
                         },
                         child: Row(
                           children: [
@@ -61,10 +64,11 @@ class CalcDrawerTheme extends StatelessWidget {
                                 width: 20,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    gradient: extension.themeCategory ==
+                                    gradient:
+                                        extension.themeCategory ==
                                             ThemeCategory.special
                                         ? const SweepGradient(
-                                            colors: ThemeUtil.rainbowColors,
+                                            colors: ThemeProvider.rainbowColors,
                                           )
                                         : LinearGradient(
                                             begin: Alignment.topRight,
@@ -103,8 +107,8 @@ class CalcDrawerTheme extends StatelessWidget {
             ),
             Container(
               color: myColors.btn2BackgroundColor,
-              height: screenHeight * 0.025,
-            )
+              height: height * 0.025,
+            ),
           ],
         ),
       ),

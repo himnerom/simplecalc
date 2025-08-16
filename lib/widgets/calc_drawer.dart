@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:simple_calculator/services/shape_service.dart';
-import 'package:simple_calculator/services/theme_service.dart';
-import 'package:simple_calculator/widgets/buttons/calc_button.dart';
-import 'package:simple_calculator/widgets/drawer/calc_drawer_theme.dart';
+import 'package:simple_calculator/main.dart';
+import 'package:simple_calculator/providers/shape_provider.dart';
+import 'package:simple_calculator/providers/theme_provider.dart';
+import 'package:simple_calculator/widgets/calc_button.dart';
+import 'package:simple_calculator/widgets/calc_drawer_theme.dart';
 
-class CalcDrawer extends StatelessWidget {
-  const CalcDrawer({
-    Key? key,
-  }) : super(key: key);
-
-  static const List<double> shapesList = [
-    2, // Solid
-    12, // Round
-    42, // Circle
-    // null, // Hidden
-  ];
+class CalcDrawer extends ConsumerWidget {
+  const CalcDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    MyColors myColors = Theme.of(context).extension<MyColors>()!;
-    double borderRadius = context.watch<ShapeService>().borderRadius;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final MyColors myColors = ref.watch(themeProvider).extension<MyColors>()!;
+    final double borderRadius = ref.watch(shapeProvider);
 
     return Drawer(
       backgroundColor: myColors.backgroundColor,
@@ -51,9 +43,7 @@ class CalcDrawer extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: StaggeredGrid.count(
                   axisDirection: AxisDirection.down,
                   crossAxisCount: 1,
@@ -66,13 +56,10 @@ class CalcDrawer extends StatelessWidget {
                       child: CalcButton(
                         backgroundColor: myColors.btn1BackgroundColor,
                         borderColor: myColors.btn1BackgroundColor,
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                const CalcDrawerTheme(),
-                          );
-                        },
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (_) => const CalcDrawerTheme(),
+                        ),
                         child: Card(
                           color: myColors.btn2BackgroundColor,
                           shadowColor: Colors.transparent,
@@ -95,14 +82,18 @@ class CalcDrawer extends StatelessWidget {
                         backgroundColor: myColors.resBackgroundColor,
                         borderColor: myColors.btn1BackgroundColor,
                         onTap: () {
-                          int idx = shapesList.indexOf(borderRadius) + 1;
-                          if (idx >= shapesList.length) {
+                          int idx =
+                              ShapeProvider.radiusesList.indexOf(borderRadius) +
+                              1;
+                          if (idx >= ShapeProvider.radiusesList.length) {
                             idx = 0;
                           }
 
-                          context
-                              .read<ShapeService>()
-                              .changeBorderRadius(shapesList[idx]);
+                          ref
+                              .read(shapeProvider.notifier)
+                              .changeBorderRadius(
+                                ShapeProvider.radiusesList[idx],
+                              );
                         },
                         child: Card(
                           color: myColors.resBackgroundColor,

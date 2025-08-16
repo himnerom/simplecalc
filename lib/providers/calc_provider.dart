@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:function_tree/function_tree.dart';
 
 /// Enum to know the state of the operation
@@ -13,7 +14,7 @@ enum OperationState {
   eq,
 }
 
-class CalculatorService with ChangeNotifier {
+class CalcProvider extends Notifier<String> {
   static const String possibleOperators = '+-*/';
   static const String possibleDigits = '0123456789';
 
@@ -33,21 +34,20 @@ class CalculatorService with ChangeNotifier {
     LogicalKeyboardKey.delete,
     LogicalKeyboardKey.backspace,
   ];
+  
+  @override
+  String build() => '0';
 
-  String _currentDisplay = '0';
   String nb1 = '0';
   String nb2 = '0';
   String operator = '+';
   OperationState operationState = OperationState.nb1;
-
-  String get currentDisplay => _currentDisplay;
-
-  set currentDisplay(String val) {
-    _currentDisplay = val;
-    notifyListeners();
+  
+  void setState(String val) {
+    state = val;
 
     if (kDebugMode) {
-      print('currentDisplay: $_currentDisplay');
+      print('currentDisplay: $val');
       print('nb1: $nb1');
       print('nb2: $nb2');
       print('operator: $operator');
@@ -64,21 +64,21 @@ class CalculatorService with ChangeNotifier {
     switch (operationState) {
       case OperationState.nb1:
         nb1 = nb1 == '0' ? digit : nb1 + digit;
-        currentDisplay = nb1;
+        setState(nb1);
         break;
       case OperationState.ope:
         operationState = OperationState.nb2;
         nb2 = digit;
-        currentDisplay = nb2;
+        setState(nb2);
         break;
       case OperationState.nb2:
         nb2 = nb2 == '0' ? digit : nb2 + digit;
-        currentDisplay = nb2;
+        setState(nb2);
         break;
       case OperationState.eq:
         pushReset();
         nb1 = digit;
-        currentDisplay = nb1;
+        setState(nb1);
         break;
     }
   }
@@ -103,7 +103,7 @@ class CalculatorService with ChangeNotifier {
 
     /// Handles nb1/0
     if (operator == '/' && removeTrailingZeros(nb2) == '0') {
-      currentDisplay = 'Not a number';
+      setState('Not a number');
       operationState = OperationState.eq;
       return;
     }
@@ -128,7 +128,7 @@ class CalculatorService with ChangeNotifier {
     }
 
     nb1 = res.toString();
-    currentDisplay = removeTrailingZeros(nb1.interpret().toString());
+    setState(removeTrailingZeros(nb1.interpret().toString()));
     operationState = OperationState.eq;
   }
 
@@ -137,18 +137,18 @@ class CalculatorService with ChangeNotifier {
         operationState == OperationState.eq) {
       if (!nb1.contains('.')) {
         nb1 += '.';
-        currentDisplay = nb1;
+        setState(nb1);
       }
       operationState = OperationState.nb1;
     } else if (!nb2.contains('.')) {
       nb2 += '.';
-      currentDisplay = nb2;
+      setState(nb2);
       operationState = OperationState.nb2;
     }
   }
 
   void pushRemove() {
-    String nb = currentDisplay;
+    String nb = state;
     if (nb.isEmpty || nb.length == 1) {
       nb = '0';
     } else if (nb.contains('e')) {
@@ -160,7 +160,7 @@ class CalculatorService with ChangeNotifier {
       nb = nb.substring(0, nb.length - 1);
     }
 
-    currentDisplay = nb;
+    setState(nb);
     if (operationState == OperationState.nb2) {
       nb2 = nb;
     } else {
@@ -170,7 +170,7 @@ class CalculatorService with ChangeNotifier {
   }
 
   void pushReset() {
-    currentDisplay = '0';
+    setState('0');
     nb1 = '0';
     nb2 = '0';
     operator = '+';

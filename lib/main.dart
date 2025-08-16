@@ -1,50 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:stacked_themes/stacked_themes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:simple_calculator/services/calculator_service.dart';
-import 'package:simple_calculator/services/shape_service.dart';
-import 'package:simple_calculator/services/theme_service.dart';
-import 'package:simple_calculator/widgets/home.dart';
+import 'package:simple_calculator/calc.dart';
+import 'package:simple_calculator/providers/calc_provider.dart';
+import 'package:simple_calculator/providers/shape_provider.dart';
+import 'package:simple_calculator/providers/theme_provider.dart';
 
-void main() async {
-  await ThemeManager.initialise();
+final calcProvider = NotifierProvider<CalcProvider, String>(CalcProvider.new);
+final shapeProvider = NotifierProvider<ShapeProvider, double>(
+  ShapeProvider.new,
+);
+final themeProvider = NotifierProvider<ThemeProvider, ThemeData>(
+  ThemeProvider.new,
+);
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ShapeService()),
-        ChangeNotifierProvider(create: (_) => CalculatorService()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-  }) : super(key: key);
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ThemeBuilder(
-      themes: ThemeUtil.themesList,
-      builder: (context, regularTheme, darkTheme, themeMode) => MaterialApp(
-        /// First widget when opening the app
-        home: const HomeScreen(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ThemeData theme = ref.watch(themeProvider);
 
-        /// App config / debug config
-        title: 'SimpleCalc',
-        debugShowCheckedModeBanner: false,
-        // showPerformanceOverlay: true,
-        // showSemanticsDebugger: true,
+    return MaterialApp(
+      title: 'Simple Calc',
+      home: const CalcScreen(),
+      theme: theme,
 
-        /// Themes related stuff (blue theme by default)
-        theme: regularTheme,
-        themeMode: themeMode,
-        darkTheme: darkTheme,
-      ),
+      /// Remove debug props
+      debugShowCheckedModeBanner: false,
+      showPerformanceOverlay: false,
+      showSemanticsDebugger: false,
     );
   }
 }

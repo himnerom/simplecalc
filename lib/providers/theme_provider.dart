@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// List o' themes
-class ThemeUtil {
+class ThemeProvider extends Notifier<ThemeData> {
+  @override
+  ThemeData build() {
+    SharedPreferences.getInstance().then((prefs) {
+      int? idx = prefs.getInt(themeIndexKey);
+      if (idx != null) {
+        state = themesList[idx];
+      }
+    });
+
+    return themesList[0];
+  }
+
+  void selectThemeAtIndex(int index) {
+    if (index >= 0 && index < themesList.length) {
+      state = themesList[index];
+      SharedPreferences.getInstance().then(
+        (prefs) => prefs.setInt(themeIndexKey, index),
+      );
+    }
+  }
+
+  static String themeIndexKey = 'themeIndex';
   static String defaultFont = 'JetBrainsMono';
 
   static List<ThemeData> themesList = [
