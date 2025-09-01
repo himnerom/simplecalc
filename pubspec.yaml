@@ -1,7 +1,7 @@
 name: simple_calculator
 description: Just a simple calculator. Nothing more.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+10
+version: 1.0.1+11
 
 environment:
   sdk: ^3.9.0
