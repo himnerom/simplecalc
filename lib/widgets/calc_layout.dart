@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_calculator/services/themes_service.dart';
 
-import 'package:simple_calculator/services/theme_service.dart';
-import 'package:simple_calculator/widgets/drawer/calc_drawer.dart';
+// import 'package:simple_calculator/services/theme_service.dart';
+import 'package:simple_calculator/widgets/calc_drawer.dart';
 
 class CalcLayout extends StatelessWidget {
   const CalcLayout({
-    Key? key,
+    super.key,
     required this.scaffoldKey,
     required this.layoutSize,
     required this.layoutPadding,
     required this.child,
-  }) : super(key: key);
+  });
 
   final GlobalKey<ScaffoldState> scaffoldKey;
   final double layoutSize;
@@ -19,10 +21,10 @@ class CalcLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyColors myColors = Theme.of(context).extension<MyColors>()!;
+    final theme = context.watch<ThemesService>().theme;
 
     return Scaffold(
-      backgroundColor: myColors.backgroundColor,
+      backgroundColor: theme.backgroundColor,
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
       body: SafeArea(

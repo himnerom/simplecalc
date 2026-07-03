@@ -128,7 +128,7 @@ class CalculatorService with ChangeNotifier {
     }
 
     nb1 = res.toString();
-    currentDisplay = removeTrailingZeros(nb1.interpret().toString());
+    currentDisplay = removeTrailingZeros(res.round(scale: 16).toString());
     operationState = OperationState.eq;
   }
 

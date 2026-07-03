@@ -1,6 +1,6 @@
 {
-    "name": "simple_calculator",
-    "short_name": "simple_calculator",
+    "name": "simple_calc",
+    "short_name": "simple_calc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
