@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
   static const borderRadiusKey = 'border_radius_key';
+  static const themeIndexKey = 'theme_index_key';
 
   static late final SharedPreferences _p;
 

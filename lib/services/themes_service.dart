@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:simple_calculator/services/shared_preferences_service.dart';
+
 /// Useful only to categorise/describe the theme
 enum ThemeCategory {
   gray, // Has only a shade of gray as primary color
@@ -11,6 +13,17 @@ enum ThemeCategory {
 
 /// List o' themes
 class ThemesService with ChangeNotifier {
+  ThemesService() {
+    final int? tmp = SharedPreferencesService.getValue(
+      SharedPreferencesService.themeIndexKey,
+    );
+    if (tmp != null) {
+      _theme = themesList[tmp];
+    }
+
+    notifyListeners();
+  }
+
   static String defaultFont = 'JetBrainsMono';
   static ThemePalette defaultTheme = themesList.first;
 
@@ -20,6 +33,11 @@ class ThemesService with ChangeNotifier {
 
   void setTheme(int index) {
     _theme = themesList[index];
+    SharedPreferencesService.setValue(
+      SharedPreferencesService.themeIndexKey,
+      index,
+    );
+
     notifyListeners();
   }
 
@@ -400,7 +418,7 @@ class ThemesService with ChangeNotifier {
       btn1TextColor: Color(0xff660000),
       btn1BackgroundColor: Color(0xffea9999),
       btn2TextColor: Color(0xffffffff),
-      btn2BackgroundColor: Color(0xff8bbf73),
+      btn2BackgroundColor: Color(0xffe06666),
       secondaryColor: Color(0xffe06666),
     ),
 

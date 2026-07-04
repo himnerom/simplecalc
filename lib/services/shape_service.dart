@@ -5,27 +5,23 @@ import 'package:simple_calculator/services/shared_preferences_service.dart';
 
 class ShapeService with ChangeNotifier {
   ShapeService() {
-    getPreferredShape();
+    final double? tmp = SharedPreferencesService.getValue(
+      SharedPreferencesService.borderRadiusKey,
+    );
+    _borderRadius = tmp ?? _borderRadius;
+    notifyListeners();
   }
 
   double _borderRadius = 12;
+
   double get borderRadius => _borderRadius;
+
   void changeBorderRadius(double borderRadius) {
     _borderRadius = borderRadius;
     SharedPreferencesService.setValue(
       SharedPreferencesService.borderRadiusKey,
       borderRadius,
     );
-    notifyListeners();
-  }
-
-  getPreferredShape() async {
-    double? tmp = await SharedPreferencesService.getValue(
-      SharedPreferencesService.borderRadiusKey,
-    );
-    if (tmp != null) {
-      _borderRadius = tmp;
-    }
     notifyListeners();
   }
 }
