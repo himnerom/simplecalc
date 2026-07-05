@@ -10,6 +10,7 @@ dependencies:
   decimal: ^3.2.4
   flutter:
     sdk: flutter
+  flutter_slidable: ^4.0.3
   function_tree: ^0.9.1
   provider: ^6.1.5+1
   rational: ^2.2.3

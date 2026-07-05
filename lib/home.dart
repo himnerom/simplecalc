@@ -54,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<ThemesService>().theme;
+    final ts = context.watch<ThemesService>();
+    final theme = ts.theme;
+    final greyShade = ts.greyShade;
+
     final double layoutSize = ScreenService.getLayoutSize(context);
     int i = 0;
 
@@ -133,7 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: CalcTextButton(
                     text: '三',
-                    textColor: theme.titleColor,
+                    textColor: greyShade == Brightness.dark
+                        ? theme.backgroundColor
+                        : theme.titleColor,
                     backgroundColor: Colors.transparent,
                     onTap: () => scaffoldKey.currentState?.openEndDrawer(),
                   ),

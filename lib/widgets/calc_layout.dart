@@ -21,10 +21,14 @@ class CalcLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.watch<ThemesService>().theme;
+    final ts = context.watch<ThemesService>();
 
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: ts.greyShade == null
+          ? ts.theme.backgroundColor
+          : (ts.greyShade == Brightness.light
+                ? ThemesService.lightBackground
+                : ThemesService.darkBackground),
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
       body: SafeArea(
@@ -34,9 +38,7 @@ class CalcLayout extends StatelessWidget {
               maxWidth: layoutSize,
               maxHeight: layoutSize,
             ),
-            padding: EdgeInsets.all(
-              layoutPadding,
-            ),
+            padding: EdgeInsets.all(layoutPadding),
             child: child,
           ),
         ),

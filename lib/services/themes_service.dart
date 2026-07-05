@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:simple_calculator/services/shared_preferences_service.dart';
@@ -7,46 +8,68 @@ enum ThemeCategory {
   gray, // Has only a shade of gray as primary color
   simple, // Has only one primary color
   double, // Has primary & secondary colors
-  doubleGrey, // Has a simple color as primary and shade of gray as secondary
   special, // Other weird patterns
 }
 
 /// List o' themes
 class ThemesService with ChangeNotifier {
+  static String defaultFont = 'JetBrainsMono';
+  static ThemePalette defaultTheme = themesList.first;
+
   ThemesService() {
-    final int? tmp = SharedPreferencesService.getValue(
+    final int? idx = SharedPreferencesService.getInt(
       SharedPreferencesService.themeIndexKey,
     );
-    if (tmp != null) {
-      _theme = themesList[tmp];
+    if (idx != null) {
+      _theme = themesList[idx];
     }
+
+    final String? grey = SharedPreferencesService.getString(
+      SharedPreferencesService.brightnessGreyKey,
+    );
+    _greyShade = Brightness.values.firstWhereOrNull(
+      (e) => e.toString() == grey,
+    );
 
     notifyListeners();
   }
 
-  static String defaultFont = 'JetBrainsMono';
-  static ThemePalette defaultTheme = themesList.first;
-
+  /// Provider related
+  ThemePalette get theme => _theme;
   ThemePalette _theme = defaultTheme;
 
-  ThemePalette get theme => _theme;
+  Brightness? get greyShade => _greyShade;
+  Brightness? _greyShade;
 
-  void setTheme(int index) {
+  void setTheme(int index, [Brightness? greyShade]) {
     _theme = themesList[index];
+    _greyShade = greyShade;
+
     SharedPreferencesService.setValue(
       SharedPreferencesService.themeIndexKey,
       index,
     );
+    SharedPreferencesService.setValue(
+      SharedPreferencesService.brightnessGreyKey,
+      greyShade.toString(),
+    );
 
     notifyListeners();
   }
 
-  static List<ThemePalette> themesList = [
+  static const lightBackground = Color(0xffefefef);
+  static Color darkBackground = Color.lerp(
+    Color(0xff141414),
+    Color(0xff666666),
+    0.2,
+  )!;
+
+  static const List<ThemePalette> themesList = [
     /// Bluwy
     ThemePalette(
       themeName: 'Bluwy',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xff6d9eeb),
+      primaryColor: Color(0xff6d9eeb),
       primarySwatch: Colors.blue,
       brightness: Brightness.light,
       titleColor: Color(0xff1c4587),
@@ -66,7 +89,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Violet',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xff8e7cc3),
+      primaryColor: Color(0xff8e7cc3),
       primarySwatch: Colors.deepPurple,
       brightness: Brightness.light,
       titleColor: Color(0xff20124d),
@@ -86,7 +109,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Sakura',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xfff06292),
+      primaryColor: Color(0xfff06292),
       primarySwatch: Colors.pink,
       brightness: Brightness.light,
       titleColor: Color(0xff880e4f),
@@ -106,7 +129,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Leechi',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xffe06666),
+      primaryColor: Color(0xffe06666),
       primarySwatch: Colors.red,
       brightness: Brightness.light,
       titleColor: Color(0xff660000),
@@ -126,7 +149,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Orinji',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xfff6b26b),
+      primaryColor: Color(0xfff6b26b),
       primarySwatch: Colors.orange,
       brightness: Brightness.light,
       titleColor: Color(0xff783f04),
@@ -146,7 +169,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Banannaah',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xffffd966),
+      primaryColor: Color(0xffffd966),
       primarySwatch: Colors.yellow,
       brightness: Brightness.light,
       titleColor: Color(0xff7f6000),
@@ -166,7 +189,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Greenery',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xff8bbf73),
+      primaryColor: Color(0xff8bbf73),
       primarySwatch: Colors.green,
       brightness: Brightness.light,
       titleColor: Color(0xff274e13),
@@ -186,7 +209,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Beary',
       themeCategory: ThemeCategory.simple,
-      primaryColor: const Color(0xff8d6e63),
+      primaryColor: Color(0xff8d6e63),
       primarySwatch: Colors.brown,
       brightness: Brightness.light,
       titleColor: Color(0xff3e2723),
@@ -206,7 +229,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Nothingness',
       themeCategory: ThemeCategory.gray,
-      primaryColor: const Color(0xfff3f3f3),
+      primaryColor: Color(0xfff3f3f3),
       primarySwatch: Colors.grey,
       brightness: Brightness.light,
       titleColor: Color(0xff000000),
@@ -226,7 +249,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Whigrey',
       themeCategory: ThemeCategory.gray,
-      primaryColor: const Color(0xffb7b7b7),
+      primaryColor: Color(0xffb7b7b7),
       primarySwatch: Colors.blueGrey,
       brightness: Brightness.light,
       titleColor: Color(0xff434343),
@@ -246,7 +269,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Dargrey',
       themeCategory: ThemeCategory.gray,
-      primaryColor: const Color(0xffb7b7b7),
+      primaryColor: Color(0xffb7b7b7),
       primarySwatch: Colors.grey,
       brightness: Brightness.dark,
       titleColor: Color(0xffffffff),
@@ -266,7 +289,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'VoidContrast',
       themeCategory: ThemeCategory.gray,
-      primaryColor: const Color(0xff434343),
+      primaryColor: Color(0xff434343),
       primarySwatch: Colors.grey,
       brightness: Brightness.light,
       titleColor: Color(0xff434343),
@@ -286,7 +309,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Blubewy',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xff6d9eeb),
+      primaryColor: Color(0xff6d9eeb),
       primarySwatch: Colors.blue,
       brightness: Brightness.light,
       titleColor: Color(0xff1c4587),
@@ -306,7 +329,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'GrapFrut',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xfff6b26b),
+      primaryColor: Color(0xfff6b26b),
       primarySwatch: Colors.orange,
       brightness: Brightness.light,
       titleColor: Color(0xff783f04),
@@ -326,7 +349,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Carott',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xff8bbf73),
+      primaryColor: Color(0xff8bbf73),
       primarySwatch: Colors.green,
       brightness: Brightness.light,
       titleColor: Color(0xff274e13),
@@ -346,7 +369,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Sontri',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xffffd966),
+      primaryColor: Color(0xffffd966),
       primarySwatch: Colors.yellow,
       brightness: Brightness.light,
       titleColor: Color(0xff274e13),
@@ -366,7 +389,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Seaside',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xff6d9eeb),
+      primaryColor: Color(0xff6d9eeb),
       primarySwatch: Colors.blue,
       brightness: Brightness.light,
       titleColor: Color(0xff1c4587),
@@ -386,7 +409,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Honiey',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xffffd966),
+      primaryColor: Color(0xffffd966),
       primarySwatch: Colors.yellow,
       brightness: Brightness.light,
       titleColor: Color(0xff7f6000),
@@ -406,7 +429,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Whatamelon',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xff8bbf73),
+      primaryColor: Color(0xff8bbf73),
       primarySwatch: Colors.green,
       brightness: Brightness.light,
       titleColor: Color(0xff274e13),
@@ -426,7 +449,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Chocomint',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xff8d6e63),
+      primaryColor: Color(0xff8d6e63),
       primarySwatch: Colors.brown,
       brightness: Brightness.light,
       titleColor: Color(0xff3e2723),
@@ -446,7 +469,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'Downut',
       themeCategory: ThemeCategory.double,
-      primaryColor: const Color(0xfff06292),
+      primaryColor: Color(0xfff06292),
       primarySwatch: Colors.pink,
       brightness: Brightness.light,
       titleColor: Color(0xff880e4f),
@@ -466,7 +489,7 @@ class ThemesService with ChangeNotifier {
     ThemePalette(
       themeName: 'SimpleRainbow',
       themeCategory: ThemeCategory.special,
-      primaryColor: const Color(0xff434343),
+      primaryColor: Color(0xff434343),
       primarySwatch: Colors.grey,
       brightness: Brightness.light,
       titleColor: Color(0xff434343),

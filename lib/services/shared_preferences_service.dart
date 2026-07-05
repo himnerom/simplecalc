@@ -1,8 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-  static const borderRadiusKey = 'border_radius_key';
-  static const themeIndexKey = 'theme_index_key';
+  static const borderRadiusKey = 'border_radius_key'; // double
+  static const themeIndexKey = 'theme_index_key'; // int
+  static const brightnessGreyKey = 'brightness_grey_key'; // String
 
   static late final SharedPreferences _p;
 
@@ -11,7 +12,10 @@ class SharedPreferencesService {
     _p = await SharedPreferences.getInstance();
   }
 
-  static dynamic getValue(String key) => _p.get(key);
+  static bool? getBool(String key) => _p.getBool(key);
+  static double? getDouble(String key) => _p.getDouble(key);
+  static int? getInt(String key) => _p.getInt(key);
+  static String? getString(String key) => _p.getString(key);
 
   static Future<bool> setValue(String key, dynamic content) async {
     if (content is String) {
