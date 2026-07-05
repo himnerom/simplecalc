@@ -6,12 +6,7 @@ import 'package:function_tree/function_tree.dart';
 
 /// Enum to know the state of the operation
 /// States normal lifecycle (no AC): nb1 -> ope -> nb2 -> eq -> nb1
-enum OperationState {
-  nb1,
-  ope,
-  nb2,
-  eq,
-}
+enum OperationState { nb1, ope, nb2, eq }
 
 class CalculatorService with ChangeNotifier {
   static const String possibleOperators = '+-*/';
@@ -128,8 +123,22 @@ class CalculatorService with ChangeNotifier {
     }
 
     nb1 = res.toString();
-    currentDisplay = removeTrailingZeros(res.round(scale: 16).toString());
+    currentDisplay = formatForDisplay(res);
     operationState = OperationState.eq;
+  }
+
+  static String formatForDisplay(Decimal value) {
+    final abs = value.abs();
+
+    /// If the absolute value is too large or too small, use scientific notation
+    if (abs != Decimal.zero &&
+        (abs >= Decimal.parse('1e18') || abs < Decimal.parse('1e-15'))) {
+      final s = value.toStringAsExponential(9);
+      final i = s.indexOf('e');
+      return '${removeTrailingZeros(s.substring(0, i))}${s.substring(i)}';
+    }
+
+    return removeTrailingZeros(value.round(scale: 16).toString());
   }
 
   void pushComma() {
