@@ -51,9 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final greyShade = ts.greyShade;
 
     final screen = ScreenService(context);
-    final tmp = screen.baseFontSize * 0.915;
-    print(screen.baseFontSize);
-    print(tmp);
     int i = 0;
 
     return CalcLayout(

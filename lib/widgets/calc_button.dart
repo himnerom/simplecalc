@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_calculator/services/screen_service.dart';
 
+import 'package:simple_calculator/services/screen_service.dart';
 import 'package:simple_calculator/services/shape_service.dart';
 import 'package:simple_calculator/services/themes_service.dart';
 
@@ -10,13 +10,14 @@ class CalcButton extends StatelessWidget {
     super.key,
     this.backgroundColor,
     this.borderColor,
+    this.padding,
     required this.onTap,
     this.child,
   });
 
   final Color? backgroundColor;
   final Color? borderColor;
-
+  final double? padding;
   final GestureTapCallback? onTap;
   final Widget? child;
 
@@ -45,7 +46,7 @@ class CalcButton extends StatelessWidget {
         splashFactory: InkRipple.splashFactory,
         onTap: onTap,
         child: Padding(
-          padding: EdgeInsets.all(screen.buttonPadding),
+          padding: EdgeInsets.all(padding ?? screen.buttonPadding),
           child: Center(child: child),
         ),
       ),

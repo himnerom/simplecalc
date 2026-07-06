@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:function_tree/function_tree.dart';
 
 /// Enum to know the state of the operation
 /// States normal lifecycle (no AC): nb1 -> ope -> nb2 -> eq -> nb1

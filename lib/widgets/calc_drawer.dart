@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:simple_calculator/services/screen_service.dart';
 import 'package:simple_calculator/services/shape_service.dart';
 import 'package:simple_calculator/services/themes_service.dart';
 import 'package:simple_calculator/widgets/calc_button.dart';
@@ -21,15 +22,19 @@ class CalcDrawer extends StatelessWidget {
     final theme = context.watch<ThemesService>().theme;
     final double borderRadius = context.watch<ShapeService>().borderRadius;
 
+    final screen = ScreenService(context);
+    final double width = screen.layoutSize * 0.18;
+    final double spacing = width * 0.275;
+
     return Drawer(
       backgroundColor: theme.backgroundColor,
-      width: 88,
+      width: width,
       child: SafeArea(
         child: Container(
           padding: EdgeInsets.zero,
           child: Column(
             children: [
-              const SizedBox(height: 24),
+              SizedBox(height: spacing),
               Expanded(
                 child: RotatedBox(
                   quarterTurns: 1,
@@ -40,20 +45,21 @@ class CalcDrawer extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     style: TextStyle(
                       color: theme.titleColor,
-                      fontSize: 32,
+                      fontSize: spacing * 1.3,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: spacing / 2),
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+                padding: EdgeInsetsGeometry.symmetric(horizontal: spacing / 2),
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: CalcButton(
                     backgroundColor: theme.btn1BackgroundColor,
                     borderColor: theme.btn1BackgroundColor,
+                    padding: spacing / 3,
                     onTap: () {
                       showDialog(
                         context: context,
@@ -69,7 +75,7 @@ class CalcDrawer extends StatelessWidget {
                         borderRadius: BorderRadius.circular(borderRadius),
                         side: BorderSide(
                           color: theme.btn2BackgroundColor,
-                          width: 4,
+                          width: spacing / 6,
                         ),
                       ),
                       child: Container(),
@@ -77,14 +83,15 @@ class CalcDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: spacing / 2),
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 12),
+                padding: EdgeInsetsGeometry.symmetric(horizontal: spacing / 2),
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: CalcButton(
                     backgroundColor: theme.resBackgroundColor,
                     borderColor: theme.btn1BackgroundColor,
+                    padding: spacing / 3,
                     onTap: () {
                       int idx = shapesList.indexOf(borderRadius) + 1;
                       if (idx >= shapesList.length) {
@@ -101,14 +108,17 @@ class CalcDrawer extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(borderRadius),
-                        side: BorderSide(color: theme.resTextColor, width: 4),
+                        side: BorderSide(
+                          color: theme.resTextColor,
+                          width: spacing / 6,
+                        ),
                       ),
                       child: Container(),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: spacing / 2),
             ],
           ),
         ),
