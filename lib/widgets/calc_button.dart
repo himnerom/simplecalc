@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_calculator/services/screen_service.dart';
 
 import 'package:simple_calculator/services/shape_service.dart';
 import 'package:simple_calculator/services/themes_service.dart';
@@ -23,6 +24,7 @@ class CalcButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemesService>().theme;
     final double borderRadius = context.watch<ShapeService>().borderRadius;
+    final screen = ScreenService(context);
 
     return Card(
       color: backgroundColor,
@@ -42,8 +44,8 @@ class CalcButton extends StatelessWidget {
         splashColor: theme.resBackgroundColor.withOpacity(0.2),
         splashFactory: InkRipple.splashFactory,
         onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(8),
+        child: Padding(
+          padding: EdgeInsets.all(screen.buttonPadding),
           child: Center(child: child),
         ),
       ),

@@ -11,7 +11,7 @@ class CalcDrawerTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemesService>().theme;
-    final double screenHeight = ScreenService.screenHeight(context);
+    final screen = ScreenService(context);
 
     return Dialog(
       clipBehavior: Clip.antiAlias,
@@ -21,13 +21,13 @@ class CalcDrawerTheme extends StatelessWidget {
         side: BorderSide(color: theme.btn2BackgroundColor, width: 6),
       ),
       child: Container(
-        height: screenHeight * 0.4,
+        height: screen.height * 0.45,
         constraints: BoxConstraints(maxWidth: 280),
         child: Column(
           children: [
             Container(
               color: theme.btn2BackgroundColor,
-              height: screenHeight * 0.025,
+              height: screen.height * 0.025,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -150,7 +150,7 @@ class CalcDrawerTheme extends StatelessWidget {
             ),
             Container(
               color: theme.btn2BackgroundColor,
-              height: screenHeight * 0.025,
+              height: screen.height * 0.025,
             ),
           ],
         ),

@@ -19,14 +19,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  static const double itemSpacing = 10;
-  static const double layoutPadding = 24;
-
-  double itemFlexSize(double layoutSize, int flex) {
-    return (layoutSize - (layoutPadding * 2) - (itemSpacing * 4)) *
-            (0.2 * flex) +
-        (itemSpacing * (flex - 1));
-  }
 
   bool handleKeyPress(KeyEvent event) {
     if (event is KeyDownEvent) {
@@ -58,13 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = ts.theme;
     final greyShade = ts.greyShade;
 
-    final double layoutSize = ScreenService.getLayoutSize(context);
+    final screen = ScreenService(context);
+    final tmp = screen.baseFontSize * 0.915;
+    print(screen.baseFontSize);
+    print(tmp);
     int i = 0;
 
     return CalcLayout(
       scaffoldKey: scaffoldKey,
-      layoutSize: layoutSize,
-      layoutPadding: layoutPadding,
+      layoutSize: screen.layoutSize,
+      layoutPadding: screen.layoutPadding,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               children: [
                 SizedBox(
-                  width: itemFlexSize(layoutSize, 4),
+                  width: screen.itemFlexSize(4),
                   child: Card(
                     margin: EdgeInsets.zero,
                     color: theme.resBackgroundColor,
@@ -105,14 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Icon(
                                 Icons.assignment_turned_in_rounded,
                                 color: theme.btn2TextColor,
-                                size: 30,
+                                size: screen.baseFontSize * 1.25,
                               ),
                             ),
                           ),
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screen.buttonPadding * 20,
+                        ),
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: FittedBox(
@@ -122,8 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: theme.resTextColor,
-                                fontSize: 28,
                                 fontWeight: FontWeight.w800,
+                                fontSize: screen.baseFontSize * 1.175,
                               ),
                             ),
                           ),
@@ -132,13 +129,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '三',
                     textColor: greyShade == Brightness.dark
                         ? theme.backgroundColor
                         : theme.titleColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor: Colors.transparent,
                     onTap: () => scaffoldKey.currentState?.openEndDrawer(),
                   ),
@@ -146,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const SizedBox(height: itemSpacing),
+          SizedBox(height: screen.itemSpacing),
 
           /// Row 2
           Expanded(
@@ -156,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CalcTextButton(
                     text: '7',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -164,11 +163,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('7'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '8',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -177,11 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('8'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '9',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -190,11 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('9'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: 'AC',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -202,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => context.read<CalculatorService>().pushReset(),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcButton(
                     backgroundColor:
@@ -216,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: theme.themeCategory == ThemeCategory.special
                             ? theme.modalColor
                             : theme.btn1TextColor,
-                        size: 22,
+                        size: screen.baseFontSize * 0.915,
                       ),
                     ),
                   ),
@@ -224,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const SizedBox(height: itemSpacing),
+          SizedBox(height: screen.itemSpacing),
 
           /// Row 3
           Expanded(
@@ -234,6 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CalcTextButton(
                     text: '4',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -242,11 +245,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('4'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '5',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -255,11 +259,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('5'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '6',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -268,11 +273,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('6'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '+',
                     textColor: theme.btn2TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -281,11 +287,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushOperator('+'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '-',
                     textColor: theme.btn2TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -297,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const SizedBox(height: itemSpacing),
+          SizedBox(height: screen.itemSpacing),
 
           /// Row 4
           Expanded(
@@ -307,6 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CalcTextButton(
                     text: '1',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -315,11 +323,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('1'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '2',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -328,11 +337,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('2'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '3',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -341,11 +351,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('3'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '✕',
                     textColor: theme.btn2TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -354,11 +365,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushOperator('*'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '÷',
                     textColor: theme.btn2TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -370,17 +382,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const SizedBox(height: itemSpacing),
+          SizedBox(height: screen.itemSpacing),
 
           /// Row 5
           Expanded(
             child: Row(
               children: [
                 SizedBox(
-                  width: itemFlexSize(layoutSize, 2),
+                  width: screen.itemFlexSize(2),
                   child: CalcTextButton(
                     text: '0',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -389,11 +402,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         context.read<CalculatorService>().pushDigit('0'),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 Expanded(
                   child: CalcTextButton(
                     text: '.',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
@@ -401,12 +415,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => context.read<CalculatorService>().pushComma(),
                   ),
                 ),
-                const SizedBox(width: itemSpacing),
+                SizedBox(width: screen.itemSpacing),
                 SizedBox(
-                  width: itemFlexSize(layoutSize, 2),
+                  width: screen.itemFlexSize(2),
                   child: CalcTextButton(
                     text: '=',
                     textColor: theme.btn1TextColor,
+                    fontSize: screen.baseFontSize,
                     backgroundColor:
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]

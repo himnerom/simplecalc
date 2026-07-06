@@ -6,15 +6,15 @@ class CalcTextButton extends StatelessWidget {
   const CalcTextButton({
     super.key,
     required this.text,
-    this.textColor,
-    this.fontSize = 24,
-     this.backgroundColor,
+    required this.textColor,
+    required this.fontSize,
+    this.backgroundColor,
     this.borderColor,
     required this.onTap,
   });
 
   final String text;
-  final Color? textColor;
+  final Color textColor;
   final double fontSize;
   final Color? backgroundColor;
   final Color? borderColor;
@@ -31,8 +31,8 @@ class CalcTextButton extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           color: textColor,
-          fontSize: fontSize,
           fontWeight: FontWeight.w800,
+          fontSize: fontSize,
         ),
       ),
     );
