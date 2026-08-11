@@ -1,9 +1,17 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ScreenService {
   ScreenService(this._context);
 
   final BuildContext _context;
+
+  static const double defaultDesktopWidth = 325;
+  static const double defaultDesktopHeight = 450;
+
+  /// Returns true if the current platform is a desktop
+  static bool get isDesktop =>
+      Platform.isMacOS || Platform.isLinux || Platform.isWindows;
 
   /// Returns the padding surrounding the calc layout
   double get layoutPadding => layoutSize * 0.075;

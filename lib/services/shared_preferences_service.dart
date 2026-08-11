@@ -4,6 +4,8 @@ class SharedPreferencesService {
   static const borderRadiusKey = 'border_radius_key'; // double
   static const themeIndexKey = 'theme_index_key'; // int
   static const brightnessGreyKey = 'brightness_grey_key'; // String
+  static const desktopWindowWidthKey = 'desktop_window_width_key'; // double
+  static const desktopWindowHeightKey = 'desktop_window_height_key'; // double
 
   static late final SharedPreferences _p;
 

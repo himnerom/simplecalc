@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:simple_calculator/services/calculator_service.dart';
 import 'package:simple_calculator/services/screen_service.dart';
+import 'package:simple_calculator/services/shared_preferences_service.dart';
 import 'package:simple_calculator/services/themes_service.dart';
 import 'package:simple_calculator/widgets/calc_button.dart';
 import 'package:simple_calculator/widgets/calc_text_button.dart';
@@ -17,8 +18,31 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  Size _lastSize = Size.zero;
+
+  @override
+  void initState() {
+    ServicesBinding.instance.keyboard.addHandler(handleKeyPress);
+
+    final double width =
+        SharedPreferencesService.getDouble(
+          SharedPreferencesService.desktopWindowWidthKey,
+        ) ??
+        ScreenService.defaultDesktopWidth;
+    final double height =
+        SharedPreferencesService.getDouble(
+          SharedPreferencesService.desktopWindowHeightKey,
+        ) ??
+        ScreenService.defaultDesktopHeight;
+    _lastSize = Size(width, height);
+
+    super.initState();
+    if (ScreenService.isDesktop) {
+      WidgetsBinding.instance.addObserver(this);
+    }
+  }
 
   bool handleKeyPress(KeyEvent event) {
     if (event is KeyDownEvent) {
@@ -33,14 +57,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void initState() {
-    ServicesBinding.instance.keyboard.addHandler(handleKeyPress);
-    super.initState();
+  void didChangeMetrics() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final size = MediaQuery.sizeOf(context);
+      if (size == _lastSize) return;
+      setState(() => _lastSize = size);
+
+      SharedPreferencesService.setValue(
+        SharedPreferencesService.desktopWindowHeightKey,
+        size.height,
+      );
+      SharedPreferencesService.setValue(
+        SharedPreferencesService.desktopWindowWidthKey,
+        size.width,
+      );
+    });
   }
 
   @override
   void dispose() {
-    ServicesBinding.instance.keyboard.removeHandler(handleKeyPress);
+    WidgetsBinding.instance.removeObserver(this);
+    if (ScreenService.isDesktop) {
+      ServicesBinding.instance.keyboard.removeHandler(handleKeyPress);
+    }
+
     super.dispose();
   }
 
