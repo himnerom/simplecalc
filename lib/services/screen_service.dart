@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ScreenService {
@@ -11,7 +12,7 @@ class ScreenService {
 
   /// Returns true if the current platform is a desktop
   static bool get isDesktop =>
-      Platform.isMacOS || Platform.isLinux || Platform.isWindows;
+      !kIsWeb && (Platform.isMacOS || Platform.isLinux || Platform.isWindows);
 
   /// Returns the padding surrounding the calc layout
   double get layoutPadding => layoutSize * 0.075;
