@@ -10,6 +10,7 @@ class CalcTextButton extends StatelessWidget {
     required this.fontSize,
     this.backgroundColor,
     this.borderColor,
+    this.pressed = false,
     required this.onTap,
   });
 
@@ -18,6 +19,10 @@ class CalcTextButton extends StatelessWidget {
   final double fontSize;
   final Color? backgroundColor;
   final Color? borderColor;
+
+  /// Shows the button with its pressed effect, e.g. when the matching
+  /// physical key was just typed on a keyboard.
+  final bool pressed;
   final GestureTapCallback? onTap;
 
   @override
@@ -25,6 +30,7 @@ class CalcTextButton extends StatelessWidget {
     return CalcButton(
       backgroundColor: backgroundColor,
       borderColor: borderColor,
+      pressed: pressed,
       onTap: onTap,
       child: Text(
         text,

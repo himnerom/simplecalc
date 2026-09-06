@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +30,38 @@ class CalculatorService with ChangeNotifier {
     LogicalKeyboardKey.backspace,
   ];
 
+  /// Ids used by [CalcButton]s to know a matching physical key was just
+  /// typed, so they can show themselves as pressed.
+  static const String removeKeyId = 'remove';
+  static const String resetKeyId = 'AC';
+
   String _currentDisplay = '0';
   String nb1 = '0';
   String nb2 = '0';
   String operator = '+';
   OperationState operationState = OperationState.nb1;
+
+  /// Id of the button matching the last physical key typed, briefly set so
+  /// the on-screen button can flash a pressed effect, then cleared again.
+  String? pressedKeyId;
+  Timer? _pressedKeyTimer;
+
+  void _flashKey(String keyId) {
+    pressedKeyId = keyId;
+    notifyListeners();
+
+    _pressedKeyTimer?.cancel();
+    _pressedKeyTimer = Timer(const Duration(milliseconds: 100), () {
+      pressedKeyId = null;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    _pressedKeyTimer?.cancel();
+    super.dispose();
+  }
 
   String get currentDisplay => _currentDisplay;
 
@@ -189,18 +218,24 @@ class CalculatorService with ChangeNotifier {
     String? char = event.character;
     if (char != null && possibleDigits.contains(char)) {
       pushDigit(char);
+      _flashKey(char);
     } else if (char != null && possibleOperators.contains(char)) {
       pushOperator(char);
+      _flashKey(char);
     } else if (commaKeys.contains(event.logicalKey) ||
         char == '.' ||
         char == ',') {
       pushComma();
+      _flashKey('.');
     } else if (equalKeys.contains(event.logicalKey) || char == '=') {
       pushEqual();
+      _flashKey('=');
     } else if (removeKeys.contains(event.logicalKey)) {
       pushRemove();
+      _flashKey(removeKeyId);
     } else if (event.logicalKey == LogicalKeyboardKey.escape) {
       pushReset();
+      _flashKey(resetKeyId);
     }
   }
 

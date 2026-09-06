@@ -12,6 +12,7 @@ class CalcButton extends StatelessWidget {
     this.borderColor,
     this.padding,
     required this.onTap,
+    this.pressed = false,
     this.child,
   });
 
@@ -19,6 +20,10 @@ class CalcButton extends StatelessWidget {
   final Color? borderColor;
   final double? padding;
   final GestureTapCallback? onTap;
+
+  /// Shows the button with its pressed effect, e.g. when the matching
+  /// physical key was just typed on a keyboard.
+  final bool pressed;
   final Widget? child;
 
   @override
@@ -40,15 +45,32 @@ class CalcButton extends StatelessWidget {
           : RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
-      child: InkWell(
-        highlightColor: theme.resBackgroundColor.withOpacity(0.2),
-        splashColor: theme.resBackgroundColor.withOpacity(0.2),
-        splashFactory: InkRipple.splashFactory,
-        onTap: onTap,
-        child: Padding(
-          padding: EdgeInsets.all(padding ?? screen.buttonPadding),
-          child: Center(child: child),
-        ),
+      child: Stack(
+        children: [
+          InkWell(
+            highlightColor: theme.resBackgroundColor.withOpacity(0.2),
+            splashColor: theme.resBackgroundColor.withOpacity(0.2),
+            splashFactory: InkRipple.splashFactory,
+            onTap: onTap,
+            child: Padding(
+              padding: EdgeInsets.all(padding ?? screen.buttonPadding),
+              child: Center(child: child),
+            ),
+          ),
+
+          /// Simulated press effect, e.g. when typed from a keyboard
+          Positioned.fill(
+            child: IgnorePointer(
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 60),
+                opacity: pressed ? 1 : 0,
+                child: Container(
+                  color: theme.resBackgroundColor.withOpacity(0.2),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

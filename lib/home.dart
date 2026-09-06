@@ -90,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     final ts = context.watch<ThemesService>();
     final theme = ts.theme;
     final greyShade = ts.greyShade;
+    final calc = context.watch<CalculatorService>();
 
     final screen = ScreenService(context);
     int i = 0;
@@ -153,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           child: FittedBox(
                             fit: BoxFit.fitWidth,
                             child: Text(
-                              context.watch<CalculatorService>().currentDisplay,
+                              calc.currentDisplay,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: theme.resTextColor,
@@ -197,6 +198,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '7',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('7'),
                   ),
@@ -211,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '8',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('8'),
                   ),
@@ -225,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '9',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('9'),
                   ),
@@ -239,6 +243,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == CalculatorService.resetKeyId,
                     onTap: () => context.read<CalculatorService>().pushReset(),
                   ),
                 ),
@@ -249,6 +254,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? Colors.transparent
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == CalculatorService.removeKeyId,
                     onTap: () => context.read<CalculatorService>().pushRemove(),
                     child: Center(
                       child: Icon(
@@ -279,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '4',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('4'),
                   ),
@@ -293,6 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '5',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('5'),
                   ),
@@ -307,6 +315,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '6',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('6'),
                   ),
@@ -321,6 +330,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn2BackgroundColor,
+                    pressed: calc.pressedKeyId == '+',
                     onTap: () =>
                         context.read<CalculatorService>().pushOperator('+'),
                   ),
@@ -335,6 +345,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn2BackgroundColor,
+                    pressed: calc.pressedKeyId == '-',
                     onTap: () =>
                         context.read<CalculatorService>().pushOperator('-'),
                   ),
@@ -357,6 +368,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '1',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('1'),
                   ),
@@ -371,6 +383,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '2',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('2'),
                   ),
@@ -385,6 +398,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '3',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('3'),
                   ),
@@ -399,6 +413,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn2BackgroundColor,
+                    pressed: calc.pressedKeyId == '*',
                     onTap: () =>
                         context.read<CalculatorService>().pushOperator('*'),
                   ),
@@ -413,6 +428,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn2BackgroundColor,
+                    pressed: calc.pressedKeyId == '/',
                     onTap: () =>
                         context.read<CalculatorService>().pushOperator('/'),
                   ),
@@ -436,6 +452,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '0',
                     onTap: () =>
                         context.read<CalculatorService>().pushDigit('0'),
                   ),
@@ -450,6 +467,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '.',
                     onTap: () => context.read<CalculatorService>().pushComma(),
                   ),
                 ),
@@ -464,6 +482,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         theme.themeCategory == ThemeCategory.special
                         ? ThemesService.rainbowColors[i++]
                         : theme.btn1BackgroundColor,
+                    pressed: calc.pressedKeyId == '=',
                     onTap: () => context.read<CalculatorService>().pushEqual(),
                   ),
                 ),
