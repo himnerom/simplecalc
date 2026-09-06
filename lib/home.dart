@@ -45,15 +45,56 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   bool handleKeyPress(KeyEvent event) {
-    if (event is KeyDownEvent) {
-      context.read<CalculatorService>().push(event);
-      if (kDebugMode) {
-        print(event.physicalKey.usbHidUsage);
-        print(event.logicalKey.keyId);
-        print(event.character);
-      }
+    if (event is! KeyDownEvent) {
+      return false;
     }
-    return true;
+
+    if (kDebugMode) {
+      print(event.physicalKey.usbHidUsage);
+      print(event.logicalKey.keyId);
+      print(event.character);
+    }
+
+    final hasModifier =
+        HardwareKeyboard.instance.isMetaPressed ||
+        HardwareKeyboard.instance.isControlPressed;
+
+    /// With a modifier held, only claim the shortcuts we actually handle
+    /// (e.g. copy) so native ones (cmd+w, cmd+q...) keep working.
+    if (hasModifier) {
+      if (event.logicalKey == LogicalKeyboardKey.keyC) {
+        copyDisplayToClipboard();
+        return true;
+      }
+      return false;
+    }
+
+    return context.read<CalculatorService>().push(event);
+  }
+
+  /// Copies the current display, e.g. from a long-press or the native
+  /// copy shortcut (cmd+c on macOS, ctrl+c elsewhere).
+  void copyDisplayToClipboard() {
+    final theme = context.read<ThemesService>().theme;
+    final screen = ScreenService(context);
+
+    Clipboard.setData(
+      ClipboardData(text: context.read<CalculatorService>().currentDisplay),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: theme.btn2BackgroundColor,
+        duration: const Duration(seconds: 2),
+        content: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Icon(
+            Icons.assignment_turned_in_rounded,
+            color: theme.btn2TextColor,
+            size: screen.baseFontSize * 1.25,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -122,29 +163,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     child: InkWell(
                       splashFactory: NoSplash.splashFactory,
                       highlightColor: theme.secondaryColor.withOpacity(0.1),
-                      onLongPress: () {
-                        Clipboard.setData(
-                          ClipboardData(
-                            text: context
-                                .read<CalculatorService>()
-                                .currentDisplay,
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: theme.btn2BackgroundColor,
-                            duration: const Duration(seconds: 2),
-                            content: Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: Icon(
-                                Icons.assignment_turned_in_rounded,
-                                color: theme.btn2TextColor,
-                                size: screen.baseFontSize * 1.25,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                      onLongPress: copyDisplayToClipboard,
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: screen.buttonPadding * 20,

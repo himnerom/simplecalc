@@ -214,7 +214,10 @@ class CalculatorService with ChangeNotifier {
     operationState = OperationState.nb1;
   }
 
-  void push(KeyEvent event) {
+  /// Returns whether the event matched a calculator key, so the caller
+  /// knows whether to consume it or let it fall through (e.g. to the OS'
+  /// own shortcuts such as cmd+w).
+  bool push(KeyEvent event) {
     String? char = event.character;
     if (char != null && possibleDigits.contains(char)) {
       pushDigit(char);
@@ -236,7 +239,10 @@ class CalculatorService with ChangeNotifier {
     } else if (event.logicalKey == LogicalKeyboardKey.escape) {
       pushReset();
       _flashKey(resetKeyId);
+    } else {
+      return false;
     }
+    return true;
   }
 
   /// Ex: 010.0 -> 010 ; 10.01000 -> 10.01
